@@ -1,0 +1,12 @@
+server/node_modules/
+server/data/applications.json
+server/data/support_requests.json
+server/data/account_deletion_requests.json
+server/.env
+server/data/feedback.json
+server/data/feedback_uploads/
+server/data/releases.json
+server/data/releases_files/
+server/data/app_update_banner.json
+server/data/home_ad_banners.json
+server/data/home_ad_banners_files/

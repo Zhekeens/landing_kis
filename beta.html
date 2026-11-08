@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0f1f" />
+    <meta
+      name="description"
+      content="Заявка на закрытый бета-тест приложения КИСФИТ: форма для раннего доступа и обратной связи."
+    />
+    <title>КИСФИТ — Закрытый бета-тест</title>
+    <link rel="icon" href="./assets/kisfit-logo-wordmark-dark.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/kisfit-logo-wordmark-dark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg__grid"></div>
+      <div class="bg__glow bg__glow--a"></div>
+      <div class="bg__glow bg__glow--b"></div>
+      <div class="bg__glow bg__glow--c"></div>
+      <div class="bg__noise"></div>
+    </div>
+
+    <header class="header">
+      <a class="brand" href="./index.html#top" aria-label="КИСФИТ">
+        <img class="brand__logo" src="./assets/kisfit-logo-wordmark-dark.png" alt="КИСФИТ" width="140" height="40" />
+      </a>
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="./index.html#about">О проекте</a>
+        <a class="nav__link" href="./index.html#beta">О бета-тесте</a>
+        <a class="nav__link" href="./index.html#faq">FAQ</a>
+      </nav>
+      <div class="header__actions">
+        <a class="btn btn--ghost" href="./index.html">На главную</a>
+        <a class="btn btn--ghost js-download-modal" href="#">Скачать</a>
+        <a class="btn btn--ghost js-feedback-modal" href="#">Ошибки</a>
+      </div>
+    </header>
+
+    <main class="container beta-page">
+      <div class="beta-page__intro section__head">
+        <h1 class="h2" style="font-size: clamp(28px, 4vw, 40px); margin: 0; letter-spacing: -0.02em">
+          Закрытый бета-тест
+        </h1>
+        <p class="muted" style="margin: 0">
+          Мы расширяем круг тестировщиков по мере готовности сборок. Заполните форму — рассмотрим заявку и свяжемся с вами,
+          если подойдёте под текущий этап. Участие бесплатное; от вас — регулярное использование и внятная обратная связь.
+        </p>
+      </div>
+
+      <form id="beta-form" class="form-card reveal" novalidate>
+        <div class="form__field" data-field="name">
+          <label class="form__label" for="beta-name">Имя или ник</label>
+          <input class="form__input" id="beta-name" name="name" type="text" autocomplete="name" required maxlength="120" />
+          <span class="form__error" role="alert">Укажите, как к вам обращаться.</span>
+        </div>
+
+        <div class="form__field" data-field="email">
+          <label class="form__label" for="beta-email">Электронная почта</label>
+          <input
+            class="form__input"
+            id="beta-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            maxlength="200"
+          />
+          <span class="form__error" role="alert">Нужен корректный адрес для ответа.</span>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="beta-telegram">Telegram (необязательно)</label>
+          <input
+            class="form__input"
+            id="beta-telegram"
+            name="telegram"
+            type="text"
+            autocomplete="off"
+            placeholder="@username или ссылка"
+            maxlength="120"
+          />
+          <p class="form__hint">Удобно для оперативных уточнений по бете.</p>
+        </div>
+
+        <div class="form__field" data-field="platform">
+          <label class="form__label" for="beta-platform">Устройство для теста</label>
+          <select class="form__select" id="beta-platform" name="platform" required>
+            <option value="" selected disabled>Выберите вариант</option>
+            <option value="Android">Android</option>
+            <option value="iOS">iOS</option>
+            <option value="Android и iOS">Android и iOS (оба)</option>
+          </select>
+          <span class="form__error" role="alert">Выберите платформу.</span>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="beta-comment">Комментарий (необязательно)</label>
+          <textarea
+            class="form__textarea"
+            id="beta-comment"
+            name="comment"
+            maxlength="2000"
+            placeholder="Опыт с фитнес-приложениями, город, готовность тестировать N раз в неделю…"
+          ></textarea>
+        </div>
+
+        <div class="form__field" data-field="agree">
+          <label class="form__label" id="beta-consent-label">Политика конфиденциальности и согласие</label>
+          <details class="form__policy-disclosure">
+            <summary class="form__policy-summary">
+              Показать полный текст политики конфиденциальности
+            </summary>
+            <div class="form__policy-box" role="region" aria-label="Полный текст политики конфиденциальности">
+            <p class="form__policy-heading">Политика конфиденциальности для мобильного приложения «КИСФИТ»</p>
+
+            <p class="form__policy-sub">1. Основные термины</p>
+            <p>
+              <strong>1.1.</strong> Политика – настоящая Политика конфиденциальности мобильного приложения «КИСФИТ».
+            </p>
+            <p>
+              <strong>1.2.</strong> Пользователь – любое лицо, использующее Мобильное приложение в соответствии с
+              требованиями действующего законодательства РФ, условиями Пользовательского соглашения и настоящей Политики.
+            </p>
+            <p>
+              <strong>1.3.</strong> Правообладатель – ИП Киселев Евгений Витальевич (ОГРН: 324220200071931, ИНН: 222334443807),
+              которому принадлежат исключительные права на Мобильное приложение.
+            </p>
+            <p>
+              <strong>1.4.</strong> Мобильное приложение – программное обеспечение, разработанное под мобильные платформы iOS,
+              Android, предназначенное для установки и использования на смартфонах, посредством которого осуществляется доступ к
+              его функционалу. Основная сфера применения Мобильного приложения – спорт и геймификация спортивной активности.
+            </p>
+            <p>
+              <strong>1.5.</strong> Персональная информация Пользователя – персональная информация, которую Пользователь
+              предоставляет о себе самостоятельно при регистрации или в процессе использования Приложения, включая персональные
+              данные Пользователя, а также данные, которые автоматически передаются Правообладателю при использовании Приложения.
+            </p>
+            <p>
+              <strong>1.6.</strong> Устройство – мобильное устройство (смартфон, планшет и т.п.), имеющее доступ к сети Интернет,
+              на котором установлено Приложение.
+            </p>
+
+            <p class="form__policy-sub">2. Общие условия</p>
+            <p>
+              <strong>2.1.</strong> Настоящая Политика действует в отношении информации, которую Правообладатель может получить с
+              устройства Пользователя во время использования Мобильного приложения.
+            </p>
+            <p>
+              <strong>2.2.</strong> Использование Приложения означает безоговорочное согласие Пользователя с настоящей Политикой.
+              В случае несогласия с Политикой Пользователь должен воздержаться от использования Приложения.
+            </p>
+            <p>
+              <strong>2.3.</strong> Правообладатель не контролирует и не несёт ответственность за сторонние сайты и сервисы,
+              ссылки на которые могут быть размещены в Приложении.
+            </p>
+            <p>
+              <strong>2.4.</strong> Устанавливая Приложение, Пользователь даёт согласие на сбор, обработку, хранение и использование
+              персональных данных в целях оказания услуг и улучшения работы Приложения.
+            </p>
+
+            <p class="form__policy-sub">3. Цели сбора, обработки и хранения информации</p>
+            <p>
+              <strong>3.1.</strong> Персональные данные Пользователя обрабатываются в соответствии с законодательством Российской
+              Федерации в целях:
+            </p>
+            <ul>
+              <li>идентификации Пользователя;</li>
+              <li>предоставления доступа к функционалу Приложения;</li>
+              <li>связи с Пользователем при необходимости;</li>
+              <li>улучшения качества работы Приложения и проведения аналитики;</li>
+              <li>проведения статистических и иных исследований на основе обезличенных данных.</li>
+            </ul>
+
+            <p class="form__policy-sub">4. Условия обработки персональной информации и её передачи третьим лицам</p>
+            <p>
+              <strong>4.1.</strong> Правообладатель принимает необходимые меры для защиты персональных данных от неправомерного
+              доступа, изменения, раскрытия или уничтожения.
+            </p>
+            <p>
+              <strong>4.2.</strong> Доступ к персональным данным предоставляется только тем лицам, которым это необходимо для
+              обеспечения функционирования Приложения.
+            </p>
+            <p>
+              <strong>4.3.</strong> Передача персональных данных третьим лицам возможна только в случаях, предусмотренных
+              законодательством Российской Федерации.
+            </p>
+
+            <p class="form__policy-sub">5. Условия пользования Мобильным приложением</p>
+            <p>
+              <strong>5.1.</strong> Пользователь подтверждает, что обладает всеми необходимыми правами для использования
+              Приложения и предоставляет достоверные данные.
+            </p>
+            <p>
+              <strong>5.2.</strong> Пользователь соглашается с условиями настоящей Политики и принимает их при установке и
+              использовании Приложения.
+            </p>
+
+            <p class="form__policy-sub">6. Изменение и удаление персональных данных</p>
+            <p>
+              <strong>6.1.</strong> Пользователь может изменять или удалять свои персональные данные, направив соответствующий
+              запрос Правообладателю.
+            </p>
+            <p>
+              <strong>6.2.</strong> Удаление данных может повлечь невозможность использования отдельных функций Приложения.
+            </p>
+
+            <p class="form__policy-sub">7. Изменение Политики конфиденциальности и применимое право</p>
+            <p>
+              <strong>7.1.</strong> Правообладатель имеет право изменять настоящую Политику. Новая редакция вступает в силу с
+              момента её публикации.
+            </p>
+            <p><strong>7.2.</strong> К настоящей Политике применяется право Российской Федерации.</p>
+
+            <p class="form__policy-sub">8. Обратная связь</p>
+            <p>
+              <strong>8.1.</strong> Все вопросы и предложения по поводу настоящей Политики направляйте на адрес электронной почты:
+              <a class="link link--inline" href="mailto:kisfitnes@gmail.com">kisfitnes@gmail.com</a>.
+            </p>
+            <p>
+              Полная версия для справки также доступна на сайте:
+              <a class="link link--inline" href="./privacy.html" target="_blank" rel="noopener">политика конфиденциальности</a>.
+            </p>
+            </div>
+          </details>
+          <div class="form__check">
+            <input type="checkbox" id="beta-agree" name="agree" required />
+            <label for="beta-agree">
+              Ознакомился(ась) с политикой конфиденциальности (полный текст — по кнопке «Показать…» и на странице сайта), даю
+              согласие на обработку персональных данных, указанных в этой форме, в целях отбора в закрытый бета-тест приложения
+              «КИСФИТ» и в объёме, описанном в политике.
+            </label>
+          </div>
+          <span class="form__error" role="alert">Нужно подтвердить согласие.</span>
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="btn btn--primary">
+            <span class="btn__shine" aria-hidden="true"></span>
+            Отправить заявку
+          </button>
+        </div>
+
+        <div id="form-success" class="form__success"></div>
+      </form>
+
+      <p class="muted" style="margin-top: 22px; max-width: 56ch; font-size: 13px">
+        Заявка сохраняется на сервере лендинга. Вопросы по политике и персональным данным можно направить на
+        <a class="link link--inline" href="mailto:kisfitnes@gmail.com">kisfitnes@gmail.com</a>.
+      </p>
+    </main>
+
+    <div
+      id="download-modal"
+      class="modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="download-modal-title"
+      aria-modal="true"
+    >
+      <div class="modal__backdrop js-download-modal-close" tabindex="-1" aria-hidden="true"></div>
+      <div class="modal__dialog modal__dialog--download">
+        <button type="button" class="modal__close js-download-modal-close" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <h2 id="download-modal-title" class="h3">Скачать приложение</h2>
+        <p class="muted">
+          Установите КИСФИТ из магазина — так проще и безопаснее. APK с сайта тоже доступен сразу, без пароля.
+        </p>
+        <div class="store-badges store-badges--modal" aria-label="Установить КИСФИТ">
+          <a
+            class="store-badge store-badge--apple"
+            href="https://apps.apple.com/ru/app/%D0%BA%D0%B8%D1%81%D1%84%D0%B8%D1%82-%D1%81%D0%BF%D0%BE%D1%80%D1%82/id6783444953"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M16.365 1.43c0 1.14-.437 2.202-1.164 3.033-.79.91-2.1 1.516-3.162 1.427-.14-1.117.407-2.284 1.14-3.14C14.01 1.7 15.492 1.08 16.365 1.43zm4.155 15.8c-.48 1.11-.705 1.605-1.32 2.59-.86 1.37-2.07 3.07-3.57 3.08-1.32.02-1.66-.86-3.46-.85-1.8.01-2.18.87-3.5.85-1.5-.01-2.64-1.55-3.5-2.92-1.77-2.78-2.63-6.41-1.27-9.08.96-1.88 2.47-2.97 4.16-2.97 1.55 0 2.53.86 3.82.86 1.25 0 2.01-.87 3.82-.87 1.53 0 3.15.83 4.3 2.26-3.77 2.07-3.16 7.46.52 8.55z"
+              />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Загрузить в</span>
+              <span class="store-badge__name">App Store</span>
+            </span>
+          </a>
+          <a
+            class="store-badge store-badge--google"
+            href="https://play.google.com/store/apps/details?id=com.fitzoo.app&amp;hl=ru"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon store-badge__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M3.2 2.1v19.8L13.6 12z" />
+              <path fill="#34A853" d="M3.2 2.1 14.4 12l4.8-3.5z" />
+              <path fill="#FBBC04" d="M3.2 21.9 14.4 12l4.8 3.5z" />
+              <path fill="#EA4335" d="M19.2 8.5 21.6 10c.9.52.9 1.9 0 2.42L19.2 13.9 14.4 12z" />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Доступно в</span>
+              <span class="store-badge__name">Google Play</span>
+            </span>
+          </a>
+          <a
+            class="store-badge store-badge--rustore"
+            href="https://www.rustore.ru/catalog/app/com.fitzoo.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#00BFA5" />
+              <path
+                fill="#fff"
+                d="M7.1 6.2h5.2c2.5 0 4.1 1.45 4.1 3.55 0 1.55-.85 2.7-2.25 3.2l2.75 4.85h-2.6l-2.5-4.4H9.4v4.4H7.1V6.2zm2.3 1.85V12h2.75c1.2 0 1.95-.65 1.95-1.7s-.75-1.7-1.95-1.7H9.4z"
+              />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Скачать в</span>
+              <span class="store-badge__name">RuStore</span>
+            </span>
+          </a>
+        </div>
+        <div class="modal__actions modal__actions--stack">
+          <a class="btn btn--ghost" href="./tester.html">Скачать APK с сайта</a>
+          <button type="button" class="btn btn--ghost js-download-modal-close">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="feedback-modal"
+      class="modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="feedback-modal-title"
+      aria-modal="true"
+    >
+      <div class="modal__backdrop js-feedback-modal-close" tabindex="-1" aria-hidden="true"></div>
+      <div class="modal__dialog">
+        <button type="button" class="modal__close js-feedback-modal-close" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h2 id="feedback-modal-title" class="h3">Обратная связь</h2>
+        <p class="muted">Сообщите об ошибке или проблеме. Можно прикрепить скриншоты.</p>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-description">Описание</label>
+          <textarea class="form__textarea" id="feedback-description" maxlength="6000" placeholder="Что произошло?"></textarea>
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-steps">Шаги (необязательно)</label>
+          <textarea
+            class="form__textarea"
+            id="feedback-steps"
+            maxlength="6000"
+            placeholder="Как повторить: 1) … 2) … 3) …"
+          ></textarea>
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-contact">Контакт (необязательно)</label>
+          <input class="form__input" id="feedback-contact" maxlength="200" placeholder="email или @telegram" />
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-screens">Скриншоты (до 6)</label>
+          <input class="modal__file" id="feedback-screens" type="file" accept="image/*" multiple />
+          <div class="modal__hint">PNG/JPG/WebP, до 5MB каждый.</div>
+        </div>
+        <p id="feedback-error" class="modal__error" role="alert" hidden></p>
+        <p id="feedback-ok" class="muted" hidden></p>
+        <div class="modal__actions modal__actions--stack">
+          <button type="button" class="btn btn--primary" id="feedback-submit">
+            <span class="btn__shine" aria-hidden="true"></span>
+            Отправить
+          </button>
+          <button type="button" class="btn btn--ghost js-feedback-modal-close">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="./beta.js"></script>
+  </body>
+</html>

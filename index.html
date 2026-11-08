@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0f1f" />
+    <meta
+      name="description"
+      content="КИСФИТ — геймифицированное фитнес-приложение: миссии, XP, захват территорий, видео-проверка упражнений, челленджи с друзьями. Доступно в App Store, Google Play и RuStore."
+    />
+    <meta property="og:title" content="КИСФИТ — движение, которое затягивает" />
+    <meta
+      property="og:description"
+      content="Превращаем прогулки и тренировки в городскую игру: миссии, уровни, территории, XP и соревнования с друзьями."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kisfit.ru/" />
+    <meta property="og:image" content="https://kisfit.ru/assets/hero-app-screen.png" />
+    <title>КИСФИТ — фитнес, который играет с тобой</title>
+    <link rel="icon" href="./assets/kisfit-logo-wordmark-dark.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/kisfit-logo-wordmark-dark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+    /></noscript>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg__grid"></div>
+      <div class="bg__glow bg__glow--a"></div>
+      <div class="bg__glow bg__glow--b"></div>
+      <div class="bg__glow bg__glow--c"></div>
+      <div class="bg__noise"></div>
+    </div>
+
+    <header class="header">
+      <a class="brand" href="#top" aria-label="КИСФИТ">
+        <img
+          class="brand__logo"
+          src="./assets/kisfit-logo-wordmark-dark.png"
+          alt="КИСФИТ"
+          width="140"
+          height="40"
+        />
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="#about">О проекте</a>
+        <a class="nav__link" href="#platform">Возможности</a>
+        <a class="nav__link" href="#features">Почему работает</a>
+        <a class="nav__link" href="#territory">Территории</a>
+        <a class="nav__link" href="./partners/">Партнёрства</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header__actions">
+        <a class="btn btn--ghost" href="./support.html">Поддержка</a>
+        <a class="btn btn--ghost js-download-modal" href="#">Скачать</a>
+        <a class="btn btn--ghost js-feedback-modal" href="#">Ошибки</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero__inner container">
+          <div class="hero__left">
+            <div class="hero-badge reveal">
+              <span class="hero-badge__pulse" aria-hidden="true"></span>
+              App Store · Google Play · RuStore
+            </div>
+
+            <div class="kicker reveal">
+              <span class="kicker__chip">Миссии</span>
+              <span class="kicker__chip">Захват территорий</span>
+              <span class="kicker__chip">Уровни</span>
+              <span class="kicker__chip">Стрики</span>
+              <span class="kicker__chip">Награды</span>
+            </div>
+
+            <h1 class="h1 reveal">
+              Движение, которое
+              <span class="h1__grad">затягивает</span>.
+            </h1>
+
+            <p class="lead reveal">
+              КИСФИТ превращает прогулки и тренировки в городскую игру: парки и маршруты — точки захвата,
+              команда — ваш клан. Упражнения проверяются через камеру смартфона: сделал — засчиталось.
+              Уровни, миссии, турниры — прогресс без давления зала.
+            </p>
+
+            <div class="hero__cta reveal" id="download">
+              <div class="store-badges" aria-label="Установить КИСФИТ">
+                <a
+                  class="store-badge store-badge--apple"
+                  href="https://apps.apple.com/ru/app/%D0%BA%D0%B8%D1%81%D1%84%D0%B8%D1%82-%D1%81%D0%BF%D0%BE%D1%80%D1%82/id6783444953"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M16.365 1.43c0 1.14-.437 2.202-1.164 3.033-.79.91-2.1 1.516-3.162 1.427-.14-1.117.407-2.284 1.14-3.14C14.01 1.7 15.492 1.08 16.365 1.43zm4.155 15.8c-.48 1.11-.705 1.605-1.32 2.59-.86 1.37-2.07 3.07-3.57 3.08-1.32.02-1.66-.86-3.46-.85-1.8.01-2.18.87-3.5.85-1.5-.01-2.64-1.55-3.5-2.92-1.77-2.78-2.63-6.41-1.27-9.08.96-1.88 2.47-2.97 4.16-2.97 1.55 0 2.53.86 3.82.86 1.25 0 2.01-.87 3.82-.87 1.53 0 3.15.83 4.3 2.26-3.77 2.07-3.16 7.46.52 8.55z"
+                    />
+                  </svg>
+                  <span class="store-badge__texts">
+                    <span class="store-badge__caption">Загрузить в</span>
+                    <span class="store-badge__name">App Store</span>
+                  </span>
+                </a>
+                <a
+                  class="store-badge store-badge--google"
+                  href="https://play.google.com/store/apps/details?id=com.fitzoo.app&amp;hl=ru"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="store-badge__icon store-badge__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="#4285F4" d="M3.2 2.1v19.8L13.6 12z" />
+                    <path fill="#34A853" d="M3.2 2.1 14.4 12l4.8-3.5z" />
+                    <path fill="#FBBC04" d="M3.2 21.9 14.4 12l4.8 3.5z" />
+                    <path fill="#EA4335" d="M19.2 8.5 21.6 10c.9.52.9 1.9 0 2.42L19.2 13.9 14.4 12z" />
+                  </svg>
+                  <span class="store-badge__texts">
+                    <span class="store-badge__caption">Доступно в</span>
+                    <span class="store-badge__name">Google Play</span>
+                  </span>
+                </a>
+                <a
+                  class="store-badge store-badge--rustore"
+                  href="https://www.rustore.ru/catalog/app/com.fitzoo.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect width="24" height="24" rx="6" fill="#00BFA5" />
+                    <path
+                      fill="#fff"
+                      d="M7.1 6.2h5.2c2.5 0 4.1 1.45 4.1 3.55 0 1.55-.85 2.7-2.25 3.2l2.75 4.85h-2.6l-2.5-4.4H9.4v4.4H7.1V6.2zm2.3 1.85V12h2.75c1.2 0 1.95-.65 1.95-1.7s-.75-1.7-1.95-1.7H9.4z"
+                    />
+                  </svg>
+                  <span class="store-badge__texts">
+                    <span class="store-badge__caption">Скачать в</span>
+                    <span class="store-badge__name">RuStore</span>
+                  </span>
+                </a>
+              </div>
+              <a class="btn btn--ghost" href="./tester.html">Скачать APK с сайта</a>
+              <a class="btn btn--glass" href="#platform">Смотреть возможности</a>
+              <div class="note">
+                Магазины — основной способ установки. APK с сайта открывается сразу, без пароля.
+              </div>
+            </div>
+
+            <div class="stats reveal" role="list" aria-label="КИСФИТ в цифрах">
+              <div class="stat" role="listitem">
+                <div class="stat__num" data-count-to="11">0</div>
+                <div class="stat__label">игровых модулей в одном приложении</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat__num" data-count-to="7">0</div>
+                <div class="stat__label">дней — и привычка формируется</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat__num" data-count-to="3">0</div>
+                <div class="stat__label">минуты — чтобы начать сегодня</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__right hero__right--visual reveal">
+            <div class="hero-showcase">
+              <div class="hero-showcase__glow" aria-hidden="true"></div>
+              <div class="iphone">
+                <div class="iphone__bezel">
+                  <img
+                    class="iphone__screen"
+                    src="./assets/hero-app-screen.png"
+                    alt="Интерфейс приложения КИСФИТ"
+                    width="390"
+                    height="844"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+              <img
+                class="hero-showcase__mascot"
+                src="./assets/kisfit-mascot.png"
+                alt=""
+                width="280"
+                height="280"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="value-strip" aria-label="Зачем нужен КИСФИТ">
+        <div class="container value-strip__inner">
+          <article class="value-card reveal">
+            <div class="value-card__icon" aria-hidden="true">🎯</div>
+            <h3 class="value-card__title">Зачем</h3>
+            <p class="muted">
+              Спорт бросают не из‑за лени, а из‑за скуки и невидимого прогресса. КИСФИТ даёт цели,
+              обратную связь и азарт — как в игре.
+            </p>
+          </article>
+          <article class="value-card reveal">
+            <div class="value-card__icon" aria-hidden="true">⚙️</div>
+            <h3 class="value-card__title">Для кого</h3>
+            <p class="muted">
+              Для тех, кому надоели «просто шаги», для друзей, которые соревнуются за район,
+              и для мягкого старта без зала.
+            </p>
+          </article>
+          <article class="value-card reveal">
+            <div class="value-card__icon" aria-hidden="true">🚀</div>
+            <h3 class="value-card__title">Как работает</h3>
+            <p class="muted">
+              Миссия → выполнение (шаги, GPS или упражнение с камерой) → XP и награда →
+              стрик и рейтинг. Прогресс синхронизируется с сервером.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="about">
+        <div class="section__head">
+          <h2 class="h2 reveal">О КИСФИТ</h2>
+          <p class="muted reveal">
+            KISFIT (КИСФИТ) — геймифицированная фитнес-платформа. Мы делаем спорт «липким»:
+            маленькие победы каждый день, видимый прогресс и соревнование с друзьями.
+          </p>
+        </div>
+
+        <div class="about-highlight reveal">
+          <p class="about-highlight__quote">
+            «Не просто шаги. Это экспедиция по своему городу — с миссиями, XP и друзьями рядом.»
+          </p>
+          <p class="muted about-highlight__meta">
+            Flutter · FastAPI · OpenStreetMap · Firebase Push · HealthKit и Health Connect
+          </p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="panel reveal panel--accent">
+            <div class="panel__tag">Проблема</div>
+            <h3 class="h3">Спорт быстро надоедает</h3>
+            <p class="muted">
+              Трекеры показывают цифру — и всё. Нет награды и смысла вернуться завтра,
+              мотивация тает за первую неделю.
+            </p>
+          </article>
+          <article class="panel reveal panel--accent">
+            <div class="panel__tag panel__tag--mint">Решение</div>
+            <h3 class="h3">Игра вместо рутины</h3>
+            <p class="muted">
+              Миссии, уровни, стрики, территории и челленджи — движение с игровой обратной связью
+              и реальной пользой для здоровья.
+            </p>
+          </article>
+          <article class="panel reveal panel--accent">
+            <div class="panel__tag panel__tag--cool">Результат</div>
+            <h3 class="h3">Устойчивая привычка</h3>
+            <p class="muted">
+              Короткие сессии, серия дней без упрёков за пропуск, прогресс в профиле
+              и соревнование с друзьями.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="platform">
+        <div class="section__head">
+          <h2 class="h2 reveal">Что внутри приложения</h2>
+          <p class="muted reveal">
+            Не один экран со счётчиком — экосистема из связанных модулей: от миссий до захвата территорий и магазина XP.
+          </p>
+        </div>
+
+        <div class="platform-grid">
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--purple" aria-hidden="true">◎</div>
+            <h3 class="h3">Миссии</h3>
+            <p class="muted">Ежедневные и ручные задания: шаги, дистанция, упражнения с видео-подтверждением через камеру.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--cyan" aria-hidden="true">▲</div>
+            <h3 class="h3">XP и уровни</h3>
+            <p class="muted">Опыт за активность. Новые уровни открывают награды, персонажей и возможности.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--mint" aria-hidden="true">◈</div>
+            <h3 class="h3">Захват территорий</h3>
+            <p class="muted">Замкнутый GPS-маршрут — площадь на карте OpenStreetMap под вашим цветом.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--hot" aria-hidden="true">⚡</div>
+            <h3 class="h3">Тренировки</h3>
+            <p class="muted">GPS-треки, интервальные программы, история и статистика сессий.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--gold" aria-hidden="true">★</div>
+            <h3 class="h3">Челленджи и рейтинги</h3>
+            <p class="muted">Соревнования с друзьями, таблицы лидеров и турниры с наградами.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--purple" aria-hidden="true">✦</div>
+            <h3 class="h3">Стрики и достижения</h3>
+            <p class="muted">Цепочка активных дней, коллекции персонажей, награды турниров.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--cyan" aria-hidden="true">◉</div>
+            <h3 class="h3">Профиль и друзья</h3>
+            <p class="muted">Аватар, настройки видимости, подписчики и лента активности.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--mint" aria-hidden="true">◫</div>
+            <h3 class="h3">Чаты</h3>
+            <p class="muted">Общение с друзьями в приложении — маршруты, координация, победы.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--hot" aria-hidden="true">◇</div>
+            <h3 class="h3">Магазин XP</h3>
+            <p class="muted">Обмен накопленного опыта на внутриигровые предметы.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--gold" aria-hidden="true">⬡</div>
+            <h3 class="h3">Health-интеграция</h3>
+            <p class="muted">HealthKit (iOS) и Health Connect (Android) — шаги подтягиваются автоматически.</p>
+          </article>
+          <article class="platform-card reveal">
+            <div class="platform-card__icon platform-card__icon--purple" aria-hidden="true">⬢</div>
+            <h3 class="h3">Push-уведомления</h3>
+            <p class="muted">Напоминания о миссиях, стриках и событиях через Firebase.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="features">
+        <div class="section__head">
+          <h2 class="h2 reveal">Почему это работает</h2>
+          <p class="muted reveal">
+            Не давим дисциплиной — делаем так, чтобы было легче начать, приятно продолжать и не терять серию.
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <article class="feature reveal">
+            <div class="feature__icon" aria-hidden="true">⟡</div>
+            <div>
+              <h3 class="h3">Миссии на каждый день</h3>
+              <p class="muted">
+                Понятные цели: шаги, прогулка, лёгкая активность. Закрыл миссию — сразу награда.
+                Так проще не бросить на старте.
+              </p>
+            </div>
+          </article>
+          <article class="feature reveal">
+            <div class="feature__icon feature__icon--hot" aria-hidden="true">⚡</div>
+            <div>
+              <h3 class="h3">Упражнения и челленджи</h3>
+              <p class="muted">
+                Силовые и координация, челленджи с азартом: соревнуйся с собой вчерашним и забирай бонусный XP.
+              </p>
+            </div>
+          </article>
+          <article class="feature reveal">
+            <div class="feature__icon feature__icon--cool" aria-hidden="true">✦</div>
+            <div>
+              <h3 class="h3">Серия дней</h3>
+              <p class="muted">
+                Стрик — цепочка побед подряд. Чуть‑чуть каждый день, без марафона. Пропустил — начни заново без упрёков.
+              </p>
+            </div>
+          </article>
+          <article class="feature reveal">
+            <div class="feature__icon feature__icon--mint" aria-hidden="true">◎</div>
+            <div>
+              <h3 class="h3">Уровни, награды, персонажи</h3>
+              <p class="muted">
+                XP и уровни превращают прогресс в игру. Новые герои и кастомизация профиля мотивируют не меньше цифр.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="territory">
+        <div class="section__head">
+          <h2 class="h2 reveal">Захват территорий</h2>
+          <p class="muted reveal">
+            Двигайся — и «закрашивай» карту: район, парк, маршрут. Прогулка превращается в квест.
+          </p>
+        </div>
+
+        <div class="territory">
+          <div class="territory__copy reveal">
+            <div class="territory__pill">Геймификация</div>
+            <h3 class="h3 territory__title">Не просто шаги. Это экспедиция.</h3>
+            <p class="muted">
+              Выбери маршрут, закрой зону, удержи серию — результат виден на карте.
+            </p>
+            <div class="territory__list">
+              <div class="titem">
+                <div class="titem__k">Маршруты</div>
+                <div class="titem__v">Выбирай и закрывай зоны</div>
+              </div>
+              <div class="titem">
+                <div class="titem__k">Соревнование</div>
+                <div class="titem__v">Друзья / команда / город</div>
+              </div>
+              <div class="titem">
+                <div class="titem__k">Награды</div>
+                <div class="titem__v">XP за захват и удержание</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="territory__aside reveal">
+            <div class="shot territory__shot shot--media" aria-label="Скриншот: территории">
+              <img
+                src="./assets/placeholder-territory.jpg"
+                alt="Карта территорий в приложении КИСФИТ"
+                loading="lazy"
+                width="720"
+                height="1280"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="screens">
+        <div class="section__head">
+          <h2 class="h2 reveal">Интерфейс</h2>
+          <p class="muted reveal">
+            Главный экран, миссии, прогресс и профиль — в одном приложении, меньше лишних шагов.
+          </p>
+        </div>
+
+        <div class="shots">
+          <div class="shot shot--media reveal">
+            <img src="./assets/screen-01.jpg" alt="КИСФИТ: главный экран" loading="lazy" width="720" height="1280" />
+          </div>
+          <div class="shot shot--media reveal">
+            <img src="./assets/screen-02.jpg" alt="КИСФИТ: миссии и задания" loading="lazy" width="720" height="1280" />
+          </div>
+          <div class="shot shot--media reveal">
+            <img src="./assets/screen-03.jpg" alt="КИСФИТ: прогресс и активность" loading="lazy" width="720" height="1280" />
+          </div>
+          <div class="shot shot--media reveal">
+            <img src="./assets/screen-04.jpg" alt="КИСФИТ: профиль и настройки" loading="lazy" width="720" height="1280" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="how">
+        <div class="section__head">
+          <h2 class="h2 reveal">Как начать</h2>
+          <p class="muted reveal">
+            Поставил — открыл — пошёл. КИСФИТ поможет захотеть повторить завтра.
+          </p>
+        </div>
+
+        <ol class="steps steps--extended">
+          <li class="step reveal">
+            <div class="step__num">01</div>
+            <div class="step__body">
+              <div class="step__title">Скачайте и войдите</div>
+              <div class="muted">Установка за минуту. Разрешите геолокацию, активность и уведомления.</div>
+            </div>
+          </li>
+          <li class="step reveal">
+            <div class="step__num">02</div>
+            <div class="step__body">
+              <div class="step__title">Настройте профиль</div>
+              <div class="muted">Имя, город, аватар. Подключите HealthKit или Health Connect для синхронизации шагов.</div>
+            </div>
+          </li>
+          <li class="step reveal">
+            <div class="step__num">03</div>
+            <div class="step__body">
+              <div class="step__title">Выполните первую миссию</div>
+              <div class="muted">Прогулка, тренировка, челлендж или захват территории — XP начислится сразу.</div>
+            </div>
+          </li>
+          <li class="step reveal">
+            <div class="step__num">04</div>
+            <div class="step__body">
+              <div class="step__title">Добавьте друзей</div>
+              <div class="muted">Рейтинги, вызовы, чаты — и не теряйте стрик активных дней.</div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section container" id="community">
+        <div class="section__head">
+          <h2 class="h2 reveal">Сообщество и поддержка</h2>
+          <p class="muted reveal">
+            Подписывайтесь на каналы, задавайте вопросы и помогайте улучшать продукт.
+          </p>
+        </div>
+
+        <div class="community-grid">
+          <a class="community-card reveal" href="https://t.me/kisfit" target="_blank" rel="noopener noreferrer">
+            <div class="community-card__icon community-card__icon--tg" aria-hidden="true">✈</div>
+            <div>
+              <h3 class="h3">Telegram @kisfit</h3>
+              <p class="muted">Новости, обновления и связь с командой</p>
+            </div>
+            <span class="community-card__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="community-card reveal" href="https://vk.com/kisfit" target="_blank" rel="noopener noreferrer">
+            <div class="community-card__icon community-card__icon--vk" aria-hidden="true">VK</div>
+            <div>
+              <h3 class="h3">ВКонтакте</h3>
+              <p class="muted">Сообщество, анонсы и обратная связь</p>
+            </div>
+            <span class="community-card__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="community-card reveal" href="./support.html">
+            <div class="community-card__icon community-card__icon--support" aria-hidden="true">?</div>
+            <div>
+              <h3 class="h3">Поддержка</h3>
+              <p class="muted">Форма обратной связи со скриншотами</p>
+            </div>
+            <span class="community-card__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section container" id="faq">
+        <div class="section__head">
+          <h2 class="h2 reveal">Вопросы и ответы</h2>
+          <p class="muted reveal">
+            Как устроен КИСФИТ, что нужно для старта и чего от приложения ожидать.
+          </p>
+        </div>
+
+        <div class="faq">
+          <details class="faq__item reveal">
+            <summary>Как работает проверка упражнений?</summary>
+            <p class="muted">
+              В миссиях с упражнениями камера смартфона смотрит на движение и считает повторения:
+              сделали подход — он засчитывается, отдельно ничего подтверждать не нужно.
+              Видео нужно только для проверки выполнения и обрабатывается алгоритмами распознавания.
+              Камера запрашивается в момент такой миссии, а не для обычных прогулок и шагов.
+              Что именно сохраняется и зачем, написано в
+              <a class="link link--inline" href="./privacy.html">политике конфиденциальности</a>.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Что такое захват территорий?</summary>
+            <p class="muted">
+              Это режим, в котором прогулка становится маршрутом на карте. Вы идёте с включённым GPS
+              и замыкаете контур — парк, двор или свой маршрут. На карте OpenStreetMap появляется
+              полигон вашего цвета: территория под вашим контролем. За захват и удержание начисляется XP.
+              За те же районы можно соревноваться с друзьями, командой и другими игроками в городе:
+              кто закрыл зону, тот её удерживает.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Какие данные собирает приложение?</summary>
+            <p class="muted">
+              Для профиля — имя, город, аватар и то, что вы сами заполните при регистрации.
+              Для тренировок и захвата территорий — геолокация и маршрут на карте.
+              Шаги и дистанция считаются в приложении и, если разрешите, подтягиваются из HealthKit
+              на iPhone или Health Connect на Android. Камера и видео нужны только для упражнений
+              и контента, который вы сами отправляете в миссиях и чатах. Мы не продаём эти данные
+              и не отдаём их для рекламы третьих лиц. Полный перечень, сроки хранения и удаление
+              аккаунта — в <a class="link link--inline" href="./privacy.html">политике конфиденциальности</a>.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Кто разрабатывает КИСФИТ?</summary>
+            <p class="muted">
+              Приложение делает ИП Киселёв Евгений Витальевич (Evgeniy Kiselev).
+              Это молодёжный проект: разработка, публикация в магазинах и сервер идут
+              при поддержке Росмолодёжь.Гранты, грант выигран на форуме «Алтай. Территория развития».
+              Продукт в активной разработке — миссии, территории, рейтинги и остальные модули обновляются.
+              Вопрос или ошибку можно отправить через
+              <a class="link link--inline" href="./support.html">форму поддержки</a>,
+              в <a class="link link--inline" href="https://t.me/kisfit" target="_blank" rel="noopener noreferrer">Telegram</a>
+              или на <a class="link link--inline" href="mailto:zhekap26@gmail.com">zhekap26@gmail.com</a>.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>На каких устройствах работает КИСФИТ?</summary>
+            <p class="muted">
+              На iPhone и Android. Основной способ установки — магазины:
+              <a class="link link--inline" href="https://apps.apple.com/ru/app/%D0%BA%D0%B8%D1%81%D1%84%D0%B8%D1%82-%D1%81%D0%BF%D0%BE%D1%80%D1%82/id6783444953" target="_blank" rel="noopener noreferrer">App Store</a>,
+              <a class="link link--inline" href="https://play.google.com/store/apps/details?id=com.fitzoo.app&amp;hl=ru" target="_blank" rel="noopener noreferrer">Google Play</a>
+              и
+              <a class="link link--inline" href="https://www.rustore.ru/catalog/app/com.fitzoo.app" target="_blank" rel="noopener noreferrer">RuStore</a>.
+              На Android файл APK можно скачать
+              <a class="link link--inline" href="./tester.html">прямо с сайта</a> — он открывается сразу, без пароля.
+              После входа укажите имя, город и аватар и разрешите геолокацию, активность и уведомления:
+              без них не посчитаются шаги, маршрут и напоминания о стрике.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Это бесплатно?</summary>
+            <p class="muted">
+              Да. Миссии, тренировки, захват территорий, рейтинги, чаты и остальные базовые функции
+              работают без подписки и без оплаты. Проект поддерживается грантом, поэтому обычное
+              использование остаётся бесплатным. Если позже появятся отдельные платные опции,
+              цена и состав будут показаны в приложении до покупки — ничего не спишется само.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Нужен ли интернет?</summary>
+            <p class="muted">
+              Для входа, миссий, рейтингов, чатов и карты территорий — да: прогресс синхронизируется
+              с сервером, а карта берёт тайлы OpenStreetMap по сети. Часть действий можно сделать
+              без связи и отправить позже, когда интернет появится. Для живого маршрута и захвата
+              территории нужны GPS и желательно улица: в помещении контур замыкается плохо.
+              Шаги из HealthKit и Health Connect подтянутся при следующей синхронизации.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Чем КИСФИТ отличается от трекера шагов?</summary>
+            <p class="muted">
+              Трекер показывает число и на этом заканчивается. В КИСФИТ та же активность закрывает
+              миссию: шаги, дистанция, тренировка или упражнение с камеры сразу дают XP, уровень
+              и награду. Стрик считает дни подряд, без упрёка за пропуск — серию можно начать заново.
+              Друзья видны в рейтинге, челленджах и чатах, а прогулка может захватить район на карте.
+              Смысл не в ещё одном счётчике, а в причине вернуться завтра.
+            </p>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Где политика и условия?</summary>
+            <p class="muted">
+              В подвале сайта: <a class="link link--inline" href="./privacy.html">политика конфиденциальности</a>
+              и <a class="link link--inline" href="./terms.html">пользовательское соглашение</a>.
+              Их стоит прочитать до установки: приложение запрашивает геолокацию, камеру,
+              уведомления и данные активности. Аккаунт и связанные с ним данные можно удалить
+              на <a class="link link--inline" href="./delete-account.html">отдельной странице</a>.
+              Если ответа здесь не хватило — напишите через
+              <a class="link link--inline" href="./support.html">поддержку</a>.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section container" id="grant">
+        <a
+          class="grant-support reveal"
+          href="./grant.html"
+        >
+          <img
+            class="grant-support__logo"
+            src="./assets/rosmolodezh-grants.jpg"
+            alt="Росмолодёжь.Гранты"
+            width="220"
+            height="220"
+            loading="lazy"
+          />
+          <div>
+            <p class="grant-support__kicker">При поддержке</p>
+            <h2 class="h3" style="margin: 6px 0 8px">Проект реализуется при поддержке Росмолодёжь.Гранты</h2>
+            <p class="muted" style="margin: 0">
+              Грант выигран на форуме «Алтай. Территория развития». Открыть подробности →
+            </p>
+          </div>
+        </a>
+      </section>
+
+      <footer class="footer container">
+        <div class="footer__left">
+          <div class="brand brand--footer">
+            <img
+              class="brand__logo"
+              src="./assets/kisfit-logo-wordmark-dark.png"
+              alt="КИСФИТ"
+              width="140"
+              height="40"
+              loading="lazy"
+            />
+          </div>
+          <div class="muted">
+            © <span id="year"></span> КИСФИТ.
+            <span class="sep">·</span>
+            <a class="link link--inline" href="./privacy.html">Политика</a>
+            <span class="sep">·</span>
+            <a class="link link--inline" href="./terms.html">Условия</a>
+            <span class="sep">·</span>
+            <a class="link link--inline" href="./support.html">Поддержка</a>
+            <span class="sep">·</span>
+            <a class="link link--inline" href="./grant.html">Грант</a>
+            <span class="sep">·</span>
+            <a class="link link--inline" href="https://t.me/kisfit" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <span class="sep">·</span>
+            <a class="link link--inline" href="https://vk.com/kisfit" target="_blank" rel="noopener noreferrer">VK</a>
+          </div>
+        </div>
+        <div class="footer__right">
+          <a class="link" href="#top">Наверх</a>
+          <a class="link" href="./support.html">Поддержка</a>
+          <a class="link js-download-modal" href="#">Скачать</a>
+          <a class="link js-feedback-modal" href="#">Ошибки</a>
+        </div>
+      </footer>
+    </main>
+
+    <div
+      id="download-modal"
+      class="modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="download-modal-title"
+      aria-modal="true"
+    >
+      <div class="modal__backdrop js-download-modal-close" tabindex="-1" aria-hidden="true"></div>
+      <div class="modal__dialog modal__dialog--download">
+        <button type="button" class="modal__close js-download-modal-close" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <h2 id="download-modal-title" class="h3">Скачать приложение</h2>
+        <p class="muted">
+          Установите КИСФИТ из магазина — так проще и безопаснее. APK с сайта тоже доступен сразу, без пароля.
+        </p>
+        <div class="store-badges store-badges--modal" aria-label="Установить КИСФИТ">
+          <a
+            class="store-badge store-badge--apple"
+            href="https://apps.apple.com/ru/app/%D0%BA%D0%B8%D1%81%D1%84%D0%B8%D1%82-%D1%81%D0%BF%D0%BE%D1%80%D1%82/id6783444953"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M16.365 1.43c0 1.14-.437 2.202-1.164 3.033-.79.91-2.1 1.516-3.162 1.427-.14-1.117.407-2.284 1.14-3.14C14.01 1.7 15.492 1.08 16.365 1.43zm4.155 15.8c-.48 1.11-.705 1.605-1.32 2.59-.86 1.37-2.07 3.07-3.57 3.08-1.32.02-1.66-.86-3.46-.85-1.8.01-2.18.87-3.5.85-1.5-.01-2.64-1.55-3.5-2.92-1.77-2.78-2.63-6.41-1.27-9.08.96-1.88 2.47-2.97 4.16-2.97 1.55 0 2.53.86 3.82.86 1.25 0 2.01-.87 3.82-.87 1.53 0 3.15.83 4.3 2.26-3.77 2.07-3.16 7.46.52 8.55z"
+              />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Загрузить в</span>
+              <span class="store-badge__name">App Store</span>
+            </span>
+          </a>
+          <a
+            class="store-badge store-badge--google"
+            href="https://play.google.com/store/apps/details?id=com.fitzoo.app&amp;hl=ru"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon store-badge__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M3.2 2.1v19.8L13.6 12z" />
+              <path fill="#34A853" d="M3.2 2.1 14.4 12l4.8-3.5z" />
+              <path fill="#FBBC04" d="M3.2 21.9 14.4 12l4.8 3.5z" />
+              <path fill="#EA4335" d="M19.2 8.5 21.6 10c.9.52.9 1.9 0 2.42L19.2 13.9 14.4 12z" />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Доступно в</span>
+              <span class="store-badge__name">Google Play</span>
+            </span>
+          </a>
+          <a
+            class="store-badge store-badge--rustore"
+            href="https://www.rustore.ru/catalog/app/com.fitzoo.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="store-badge__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="#00BFA5" />
+              <path
+                fill="#fff"
+                d="M7.1 6.2h5.2c2.5 0 4.1 1.45 4.1 3.55 0 1.55-.85 2.7-2.25 3.2l2.75 4.85h-2.6l-2.5-4.4H9.4v4.4H7.1V6.2zm2.3 1.85V12h2.75c1.2 0 1.95-.65 1.95-1.7s-.75-1.7-1.95-1.7H9.4z"
+              />
+            </svg>
+            <span class="store-badge__texts">
+              <span class="store-badge__caption">Скачать в</span>
+              <span class="store-badge__name">RuStore</span>
+            </span>
+          </a>
+        </div>
+        <div class="modal__actions modal__actions--stack">
+          <a class="btn btn--ghost" href="./tester.html">Скачать APK с сайта</a>
+          <button type="button" class="btn btn--ghost js-download-modal-close">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="feedback-modal"
+      class="modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="feedback-modal-title"
+      aria-modal="true"
+    >
+      <div class="modal__backdrop js-feedback-modal-close" tabindex="-1" aria-hidden="true"></div>
+      <div class="modal__dialog">
+        <button type="button" class="modal__close js-feedback-modal-close" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h2 id="feedback-modal-title" class="h3">Обратная связь</h2>
+        <p class="muted">Сообщите об ошибке или проблеме. Можно прикрепить скриншоты.</p>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-description">Описание</label>
+          <textarea class="form__textarea" id="feedback-description" maxlength="6000" placeholder="Что произошло?"></textarea>
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-steps">Шаги (необязательно)</label>
+          <textarea
+            class="form__textarea"
+            id="feedback-steps"
+            maxlength="6000"
+            placeholder="Как повторить: 1) … 2) … 3) …"
+          ></textarea>
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-contact">Контакт (необязательно)</label>
+          <input class="form__input" id="feedback-contact" maxlength="200" placeholder="email или @telegram" />
+        </div>
+        <div class="modal__field">
+          <label class="modal__label" for="feedback-screens">Скриншоты (до 6)</label>
+          <input class="modal__file" id="feedback-screens" type="file" accept="image/*" multiple />
+          <div class="modal__hint">PNG/JPG/WebP, до 5MB каждый.</div>
+        </div>
+        <p id="feedback-error" class="modal__error" role="alert" hidden></p>
+        <p id="feedback-ok" class="muted" hidden></p>
+        <div class="modal__actions modal__actions--stack">
+          <button type="button" class="btn btn--primary" id="feedback-submit">
+            <span class="btn__shine" aria-hidden="true"></span>
+            Отправить
+          </button>
+          <button type="button" class="btn btn--ghost js-feedback-modal-close">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

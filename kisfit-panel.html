@@ -1,0 +1,2114 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0a0f1f" />
+    <title>КИСФИТ — Администрирование</title>
+    <link rel="icon" href="./assets/kisfit-logo-wordmark-dark.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/kisfit-logo-wordmark-dark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+    /></noscript>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      main.container.admin-wrap {
+        width: min(1480px, calc(100% - 32px));
+        max-width: none;
+        margin: 0 auto;
+        padding: 28px 0 64px;
+      }
+      /* .form-card из лендинга ограничена 560px — в админке карточки, таблицы и
+         редактор оформления должны занимать всю рабочую ширину. */
+      .admin-wrap .form-card {
+        max-width: none;
+      }
+      .admin-wrap .form-card.admin-login {
+        max-width: 420px;
+      }
+      .admin-wrap .form__textarea[spellcheck="false"] {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+        min-height: 160px;
+      }
+      .admin-view-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 22px;
+      }
+      .admin-view-head__grow {
+        flex: 1 1 120px;
+      }
+      .admin-view-head h2 {
+        margin: 0;
+        font-size: clamp(20px, 3vw, 26px);
+        letter-spacing: -0.02em;
+      }
+      .admin-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 8px;
+      }
+      .admin-menu-card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 18px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(10, 15, 31, 0.55);
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s, transform 0.12s;
+        font: inherit;
+        width: 100%;
+      }
+      .admin-menu-card:hover {
+        border-color: rgba(99, 102, 241, 0.55);
+        background: rgba(20, 28, 52, 0.75);
+        transform: translateY(-1px);
+      }
+      .admin-menu-card__title {
+        font-size: 17px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .admin-menu-card__desc {
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.58);
+        margin: 0;
+      }
+      .admin-menu-card__icon {
+        font-size: 28px;
+        line-height: 1;
+        opacity: 0.9;
+      }
+      .admin-table-wrap {
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(10, 15, 31, 0.55);
+      }
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      .admin-table th,
+      .admin-table td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        vertical-align: top;
+      }
+      .admin-table th {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        white-space: nowrap;
+      }
+      .admin-table td {
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .admin-table tr:last-child td {
+        border-bottom: none;
+      }
+      .admin-table .cell-muted {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+      }
+      .admin-table .cell-comment {
+        max-width: 320px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .admin-table tr.admin-merch-row {
+        cursor: pointer;
+      }
+      .admin-table tr.admin-merch-row:hover td {
+        background: rgba(99, 102, 241, 0.08);
+      }
+      .admin-detail-h {
+        margin: 18px 0 8px;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .admin-detail-h:first-child {
+        margin-top: 0;
+      }
+      .admin-detail-grid {
+        margin: 0;
+        display: grid;
+        gap: 8px 12px;
+      }
+      .admin-detail-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 38%) 1fr;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 1.35;
+      }
+      .admin-detail-row dt {
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 500;
+      }
+      .admin-detail-row dd {
+        margin: 0;
+        word-break: break-word;
+      }
+      .admin-login {
+        max-width: 420px;
+      }
+      .admin-release-form textarea.form__textarea {
+        min-height: 120px;
+      }
+      .btn--danger-outline {
+        border: 1px solid rgba(251, 113, 133, 0.45);
+        background: transparent;
+        color: rgba(255, 212, 220, 0.95);
+      }
+      .btn--danger-outline:hover {
+        border-color: rgba(251, 113, 133, 0.75);
+        background: rgba(251, 113, 133, 0.12);
+      }
+      .admin-release-progress {
+        margin-top: 14px;
+      }
+      .admin-release-progress__track {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.09);
+        overflow: hidden;
+      }
+      .admin-release-progress__fill {
+        height: 100%;
+        width: 0%;
+        border-radius: inherit;
+        background: linear-gradient(
+          90deg,
+          rgba(99, 102, 241, 0.95),
+          rgba(56, 189, 248, 0.9)
+        );
+        transition: width 0.09s linear;
+      }
+      .admin-release-upload-status {
+        margin-top: 10px;
+        font-size: 13px;
+      }
+      .release-form-busy button[type="submit"] {
+        opacity: 0.75;
+      }
+      .admin-toggle-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 20px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .admin-toggle-row label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .admin-toggle-row input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #6366f1;
+      }
+      .admin-user-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .admin-user-item {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(8, 12, 24, 0.6);
+      }
+      .admin-user-item__main {
+        flex: 1 1 200px;
+      }
+      .admin-user-item__title {
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .admin-user-item__meta {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 4px;
+      }
+      .admin-ban-pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        margin-left: 6px;
+      }
+      .admin-section-gap {
+        margin-bottom: 22px;
+      }
+      .admin-programs-layout {
+        display: grid;
+        grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.4fr);
+        gap: 16px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .admin-programs-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+      .admin-program-item {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(8, 12, 24, 0.6);
+        cursor: pointer;
+        margin-bottom: 8px;
+      }
+      .admin-program-item:hover {
+        border-color: rgba(99, 102, 241, 0.45);
+      }
+      .admin-program-item.is-selected {
+        border-color: rgba(99, 102, 241, 0.75);
+        background: rgba(30, 40, 72, 0.75);
+      }
+      .admin-program-item__title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .admin-program-item__meta {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 4px;
+      }
+      .admin-form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px 16px;
+      }
+      .admin-form-grid > .form__field {
+        margin-bottom: 16px;
+      }
+      @media (max-width: 640px) {
+        .admin-form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .admin-programs-layout {
+        grid-template-columns: minmax(300px, 0.8fr) minmax(420px, 1.6fr);
+      }
+      @media (max-width: 900px) {
+        .admin-programs-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg__grid"></div>
+      <div class="bg__glow bg__glow--a"></div>
+      <div class="bg__glow bg__glow--b"></div>
+      <div class="bg__glow bg__glow--c"></div>
+      <div class="bg__noise"></div>
+    </div>
+
+    <header class="header">
+      <a class="brand" href="./index.html#top" aria-label="КИСФИТ">
+        <img class="brand__logo" src="./assets/kisfit-logo-wordmark-dark.png" alt="КИСФИТ" width="140" height="40" />
+      </a>
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="./beta.html">Форма заявки</a>
+        <a class="nav__link" href="./admin-feedback.html">Сообщения об ошибках</a>
+      </nav>
+      <div class="header__actions">
+        <a class="btn btn--ghost" href="./index.html">На главную</a>
+      </div>
+    </header>
+
+    <main class="container admin-wrap">
+      <div class="section__head" style="margin-bottom: 24px">
+        <h1 class="h2" style="font-size: clamp(24px, 3.5vw, 34px); margin: 0; letter-spacing: -0.02em">
+          Админ-панель
+        </h1>
+        <p class="muted" style="margin: 12px 0 0">
+          Управление приложением: сборки, баннер обновления, блокировка пользователей, заявки на бета.
+        </p>
+      </div>
+
+      <section id="admin-login" class="form-card admin-login">
+        <div class="form__field">
+          <label class="form__label" for="admin-token">Токен доступа</label>
+          <input
+            class="form__input"
+            id="admin-token"
+            type="password"
+            autocomplete="current-password"
+          />
+        </div>
+        <div class="form__actions">
+          <button type="button" class="btn btn--primary" id="admin-login-btn">
+            <span class="btn__shine" aria-hidden="true"></span>
+            Войти
+          </button>
+        </div>
+        <div id="admin-login-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+      </section>
+
+      <section id="admin-panel" hidden>
+        <!-- Главное меню -->
+        <div id="admin-view-menu">
+          <div class="admin-view-head">
+            <h2>Разделы</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-logout">Выйти</button>
+          </div>
+          <nav class="admin-menu-grid" aria-label="Разделы админки">
+            <button type="button" class="admin-menu-card" data-nav="releases">
+              <span class="admin-menu-card__icon" aria-hidden="true">📦</span>
+              <span class="admin-menu-card__title">Сборки Android</span>
+              <p class="admin-menu-card__desc">Публикация APK для тестировщиков и экрана скачивания.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="passwords">
+              <span class="admin-menu-card__icon" aria-hidden="true">🔑</span>
+              <span class="admin-menu-card__title">Пароли тестировщиков</span>
+              <p class="admin-menu-card__desc">Служебные пароли. Публичное скачивание APK пароля не требует.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="registration">
+              <span class="admin-menu-card__icon" aria-hidden="true">✉️</span>
+              <span class="admin-menu-card__title">Регистрация в приложении</span>
+              <p class="admin-menu-card__desc">Подтверждение email кодом: включить или временно отключить при сбое почты.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="banner">
+              <span class="admin-menu-card__icon" aria-hidden="true">📢</span>
+              <span class="admin-menu-card__title">Баннер обновления</span>
+              <p class="admin-menu-card__desc">Полоска в приложении с просьбой установить новую версию.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="homeads">
+              <span class="admin-menu-card__icon" aria-hidden="true">📣</span>
+              <span class="admin-menu-card__title">Рекламные баннеры</span>
+              <p class="admin-menu-card__desc">Баннеры на главном экране приложения: картинка, ссылка, слот.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="mapads">
+              <span class="admin-menu-card__icon" aria-hidden="true">📍</span>
+              <span class="admin-menu-card__title">Реклама на карте</span>
+              <p class="admin-menu-card__desc">Пин с картинкой в точке на карте территорий, захвата и тренировки.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="ban">
+              <span class="admin-menu-card__icon" aria-hidden="true">🚫</span>
+              <span class="admin-menu-card__title">Блокировка</span>
+              <p class="admin-menu-card__desc">Бан пользователя: удаление данных и запрет повторной регистрации.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="usersstats">
+              <span class="admin-menu-card__icon" aria-hidden="true">📊</span>
+              <span class="admin-menu-card__title">Учёт пользователей</span>
+              <p class="admin-menu-card__desc">Регистрации, ежедневные входы и активность 3+ дней в неделю.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="beta">
+              <span class="admin-menu-card__icon" aria-hidden="true">📋</span>
+              <span class="admin-menu-card__title">Заявки на бета</span>
+              <p class="admin-menu-card__desc">Список заявок с формы на сайте.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="support">
+              <span class="admin-menu-card__icon" aria-hidden="true">💬</span>
+              <span class="admin-menu-card__title">Поддержка</span>
+              <p class="admin-menu-card__desc">Обращения пользователей с формы поддержки на сайте.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="accountdeletion">
+              <span class="admin-menu-card__icon" aria-hidden="true">🗑️</span>
+              <span class="admin-menu-card__title">Удаление аккаунтов</span>
+              <p class="admin-menu-card__desc">Заявки с страницы delete-account.html на удаление учётной записи.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="merch">
+              <span class="admin-menu-card__icon" aria-hidden="true">👕</span>
+              <span class="admin-menu-card__title">Заявки на мерч</span>
+              <p class="admin-menu-card__desc">Покупки мерча в приложении: кто заказал, статус, ручное добавление.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="xpshop">
+              <span class="admin-menu-card__icon" aria-hidden="true">🛍️</span>
+              <span class="admin-menu-card__title">Магазин XP</span>
+              <p class="admin-menu-card__desc">Цены, наличие и возможность покупки товаров в приложении.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="programs">
+              <span class="admin-menu-card__icon" aria-hidden="true">🏋️</span>
+              <span class="admin-menu-card__title">Программы тренировок</span>
+              <p class="admin-menu-card__desc">Программы спортсменов: обложка, PDF, цена в XP для приложения.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="events">
+              <span class="admin-menu-card__icon" aria-hidden="true">🏆</span>
+              <span class="admin-menu-card__title">Турниры</span>
+              <p class="admin-menu-card__desc">Создание и запуск турниров: даты, лидерборд, задачи и награды.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="uniquechars">
+              <span class="admin-menu-card__icon" aria-hidden="true">✨</span>
+              <span class="admin-menu-card__title">Уникальные персонажи</span>
+              <p class="admin-menu-card__desc">Каталог эксклюзивных персонажей и выдача пользователям по нику.</p>
+            </button>
+            <button type="button" class="admin-menu-card" data-nav="push">
+              <span class="admin-menu-card__icon" aria-hidden="true">🔔</span>
+              <span class="admin-menu-card__title">Системные пуши</span>
+              <p class="admin-menu-card__desc">Рассылка всем пользователям и по сегментам вручную.</p>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Пароли тестировщиков -->
+        <div id="admin-view-passwords" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Пароли тестировщиков</h2>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 720px">
+            Скачивание APK с сайта больше не требует пароля. Этот список можно оставить для служебного доступа
+            к <code>POST /api/tester/login</code>. В списке пароли не показываются — только подпись и дата.
+            Старый пароль из <code>SITE_DOWNLOAD_PASSWORD</code> в
+            <code>.env</code> при старте сервера один раз импортируется в список.
+          </p>
+          <div class="form-card admin-section-gap">
+            <div class="form__field">
+              <label class="form__label" for="admin-pwd-label">Подпись (необязательно)</label>
+              <input class="form__input" id="admin-pwd-label" type="text" maxlength="120" placeholder="Например: Группа QA март" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-pwd-value">Новый пароль</label>
+              <input class="form__input" id="admin-pwd-value" type="password" maxlength="256" autocomplete="new-password" />
+            </div>
+            <div class="form__actions">
+              <button type="button" class="btn btn--primary" id="admin-pwd-add">Добавить пароль</button>
+            </div>
+            <div id="admin-pwd-msg" class="form__success" hidden></div>
+            <div id="admin-pwd-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Активные пароли</h3>
+            <div id="admin-pwd-list" class="admin-user-list"></div>
+          </div>
+        </div>
+
+        <!-- Регистрация в приложении -->
+        <div id="admin-view-registration" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Регистрация в приложении</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-registration-refresh">Обновить</button>
+            <button type="button" class="btn btn--primary" id="admin-registration-save">Сохранить</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 820px">
+            Когда Яндекс Postbox или почта недоступны, можно временно разрешить регистрацию без кода из письма.
+            Сброс пароля по email при этом по-прежнему требует рабочей отправки писем.
+          </p>
+          <div class="form-card admin-section-gap">
+            <p id="admin-registration-postbox-status" class="muted" style="font-size: 14px; margin: 0 0 14px"></p>
+            <label class="form__label" style="display:flex;align-items:flex-start;gap:10px">
+              <input type="checkbox" id="admin-registration-email-required" style="margin-top:3px" />
+              <span>
+                <strong>Требовать подтверждение email кодом при регистрации</strong><br />
+                <span class="muted" style="font-size: 13px">
+                  Если выключено, пользователь завершает регистрацию после анкеты без шага с кодом. Включите снова, когда письма снова доходят.
+                </span>
+              </span>
+            </label>
+          </div>
+          <div id="admin-registration-msg" class="form__success" hidden></div>
+          <div id="admin-registration-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+        </div>
+
+        <!-- Блокировка -->
+        <div id="admin-view-ban" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Блокировка пользователей</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-ban-refresh">Обновить</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 720px">
+            Бан удаляет аккаунт и все данные. Email, login и telegram_id попадают в блок-лист — повторная регистрация невозможна.
+          </p>
+
+          <div class="form-card admin-section-gap">
+            <div class="form__field">
+              <label class="form__label" for="admin-ban-search">Поиск</label>
+              <input
+                class="form__input"
+                id="admin-ban-search"
+                type="text"
+                placeholder="email, login, имя или telegram_id"
+              />
+            </div>
+            <div class="form__actions" style="margin-top: 0">
+              <button type="button" class="btn btn--primary" id="admin-ban-search-btn">Найти</button>
+            </div>
+            <p id="admin-ban-search-status" class="muted" style="margin: 12px 0 0; font-size: 13px"></p>
+            <div id="admin-ban-users" class="admin-user-list"></div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <div class="form__field">
+              <label class="form__label" for="admin-ban-reason">Причина (необязательно)</label>
+              <textarea
+                class="form__textarea"
+                id="admin-ban-reason"
+                rows="2"
+                maxlength="500"
+                placeholder="Нарушение правил…"
+              ></textarea>
+            </div>
+            <p class="muted" style="margin: 0 0 12px; font-size: 13px">Или укажите данные напрямую:</p>
+            <div class="form__field">
+              <label class="form__label" for="admin-ban-email">Email</label>
+              <input class="form__input" id="admin-ban-email" type="email" placeholder="user@example.com" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-ban-login">Login</label>
+              <input class="form__input" id="admin-ban-login" type="text" placeholder="username" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-ban-tgid">Telegram ID</label>
+              <input class="form__input" id="admin-ban-tgid" type="text" inputmode="numeric" placeholder="-42" />
+            </div>
+            <div class="form__actions">
+              <button type="button" class="btn btn--primary btn--danger-outline" id="admin-ban-submit">
+                Забанить
+              </button>
+            </div>
+            <div id="admin-ban-msg" class="form__success" hidden></div>
+            <div id="admin-ban-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Блок-лист</h3>
+            <div id="admin-ban-list" class="admin-user-list"></div>
+          </div>
+        </div>
+
+        <!-- Учёт пользователей -->
+        <div id="admin-view-usersstats" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Учёт пользователей</h2>
+            <span class="admin-view-head__grow"></span>
+            <label class="muted" style="font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-right: 8px">
+              Период
+              <select id="admin-usersstats-days" class="input" style="width: auto; min-width: 88px">
+                <option value="14">14 дней</option>
+                <option value="30">30 дней</option>
+                <option value="90" selected>90 дней</option>
+                <option value="180">180 дней</option>
+                <option value="365">365 дней</option>
+              </select>
+            </label>
+            <button type="button" class="btn btn--ghost" id="admin-usersstats-export-full">XLSX — все участники</button>
+            <button type="button" class="btn btn--ghost" id="admin-usersstats-export-rosmol">XLSX — Росмолодёжь</button>
+            <button type="button" class="btn btn--ghost" id="admin-usersstats-refresh">Обновить</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 860px">
+            Отчётность по участникам: дата регистрации, дни входа в приложение, общая статистика.
+            Для отчётности в Росмолодёжь используется выгрузка с полями ФИО, ссылка на соцсеть и регион.
+            Данные о входах фиксируются при авторизации в приложении (журнал login/logout).
+          </p>
+
+          <div class="admin-menu-grid admin-section-gap" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))">
+            <div class="form-card" style="margin: 0">
+              <p class="muted" style="margin: 0 0 6px; font-size: 12px">Всего зарегистрировано</p>
+              <p id="admin-usersstats-total" style="margin: 0; font-size: 28px; font-weight: 700">—</p>
+            </div>
+            <div class="form-card" style="margin: 0">
+              <p class="muted" style="margin: 0 0 6px; font-size: 12px">Участников в отчёте</p>
+              <p id="admin-usersstats-participants" style="margin: 0; font-size: 28px; font-weight: 700">—</p>
+            </div>
+            <div class="form-card" style="margin: 0">
+              <p class="muted" style="margin: 0 0 6px; font-size: 12px">С входами за период</p>
+              <p id="admin-usersstats-active-period" style="margin: 0; font-size: 28px; font-weight: 700">—</p>
+            </div>
+            <div class="form-card" style="margin: 0">
+              <p class="muted" style="margin: 0 0 6px; font-size: 12px">Активны ≥3 дня/неделю</p>
+              <p id="admin-usersstats-weekly" style="margin: 0; font-size: 28px; font-weight: 700">—</p>
+              <p id="admin-usersstats-weekly-period" class="muted" style="margin: 8px 0 0; font-size: 12px"></p>
+            </div>
+            <div class="form-card" style="margin: 0">
+              <p class="muted" style="margin: 0 0 6px; font-size: 12px">Входов сегодня (UTC)</p>
+              <p id="admin-usersstats-today" style="margin: 0; font-size: 28px; font-weight: 700">—</p>
+              <p id="admin-usersstats-today-users" class="muted" style="margin: 8px 0 0; font-size: 12px"></p>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Ежедневные входы</h3>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Дата (UTC)</th>
+                    <th>Событий входа</th>
+                    <th>Уникальных пользователей</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-usersstats-daily-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Участники: регистрация и активность</h3>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ФИО</th>
+                    <th>Регион</th>
+                    <th>Регистрация</th>
+                    <th>Дней с входом</th>
+                    <th>Всего входов</th>
+                    <th>Последний вход</th>
+                    <th>Дни входа</th>
+                    <th>Соцсеть</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-usersstats-participants-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Журнал входов и выходов</h3>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Время (UTC)</th>
+                    <th>Событие</th>
+                    <th>Пользователь</th>
+                    <th>Источник</th>
+                    <th>IP</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-usersstats-log-tbody"></tbody>
+              </table>
+            </div>
+            <p id="admin-usersstats-status" class="muted" style="margin: 12px 0 0; font-size: 13px"></p>
+            <div id="admin-usersstats-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Баннер -->
+        <div id="admin-view-banner" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Баннер обновления</h2>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 720px">
+            Показывается, если версия в приложении <strong>ниже</strong> указанной минимальной.
+            Версию в сборке задаёт разработчик в <code>lib/config/app_version.dart</code>.
+          </p>
+          <div class="form-card">
+            <div class="admin-toggle-row">
+              <label>
+                <input type="checkbox" id="admin-banner-enabled" />
+                Баннер включён
+              </label>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-banner-min-version">Минимальная версия</label>
+              <input
+                class="form__input"
+                id="admin-banner-min-version"
+                type="text"
+                placeholder="Например: 1.3.0"
+                maxlength="32"
+              />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-banner-message">Текст баннера</label>
+              <textarea class="form__textarea" id="admin-banner-message" maxlength="500" rows="3"></textarea>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-banner-install-url">Ссылка на установку</label>
+              <input
+                class="form__input"
+                id="admin-banner-install-url"
+                type="url"
+                placeholder="https://kisfit.ru/tester.html"
+                maxlength="500"
+              />
+            </div>
+            <div id="admin-banner-msg" class="form__success" hidden></div>
+            <div id="admin-banner-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+            <div class="form__actions" style="margin-top: 16px">
+              <button type="button" class="btn btn--primary" id="admin-banner-save">Сохранить</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Рекламные баннеры на главном экране -->
+        <div id="admin-view-homeads" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Рекламные баннеры</h2>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 720px">
+            Баннер — одна картинка <strong>1080×360 px</strong> (PNG/JPEG/WebP) с текстом внутри.
+            При нажатии в приложении открывается указанная ссылка. На одно место можно добавить несколько баннеров —
+            они будут автоматически перелистываться каждые 10 секунд.
+          </p>
+          <div id="admin-homeads-list" class="admin-section-gap"></div>
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Новый / редактировать</h3>
+            <input type="hidden" id="admin-homeads-edit-id" value="" />
+            <div class="admin-toggle-row">
+              <label>
+                <input type="checkbox" id="admin-homeads-enabled" checked />
+                Баннер включён
+              </label>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-homeads-name">Название (только в админке)</label>
+              <input class="form__input" id="admin-homeads-name" type="text" maxlength="80" placeholder="Nike Run Club — лето 2026" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-homeads-placement">Размещение</label>
+              <select class="form__input" id="admin-homeads-placement">
+                <option value="after_territory">Под «Захват территорий»</option>
+                <option value="after_actions">Под миссиями и лидербордом</option>
+              </select>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-homeads-url">Ссылка (https)</label>
+              <input class="form__input" id="admin-homeads-url" type="url" maxlength="500" placeholder="https://example.com" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-homeads-image">Картинка 1080×360</label>
+              <input class="form__input" id="admin-homeads-image" type="file" accept="image/png,image/jpeg,image/webp" />
+              <input type="hidden" id="admin-homeads-image-filename" value="" />
+              <div id="admin-homeads-image-preview" style="margin-top: 10px"></div>
+            </div>
+            <div id="admin-homeads-msg" class="form__success" hidden></div>
+            <div id="admin-homeads-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+            <div class="form__actions" style="margin-top: 16px; gap: 8px; flex-wrap: wrap">
+              <button type="button" class="btn btn--primary" id="admin-homeads-save">Сохранить</button>
+              <button type="button" class="btn btn--ghost" id="admin-homeads-reset-form">Очистить форму</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-view-mapads" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Реклама на карте</h2>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 720px">
+            На карте видна только картинка, без подложки. По нажатию открывается карточка с названием,
+            описанием и ссылкой. Лучше PNG с прозрачным фоном от 256 px.
+          </p>
+          <div id="admin-mapads-list" class="admin-section-gap"></div>
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Новый / редактировать</h3>
+            <input type="hidden" id="admin-mapads-edit-id" value="" />
+            <div class="admin-toggle-row">
+              <label>
+                <input type="checkbox" id="admin-mapads-enabled" checked />
+                Пин включён
+              </label>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-mapads-name">Название</label>
+              <input class="form__input" id="admin-mapads-name" type="text" maxlength="80" placeholder="КИСФИТ" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-mapads-description">Описание</label>
+              <textarea class="form__textarea" id="admin-mapads-description" maxlength="400" rows="3" placeholder="Текст, который увидит человек в карточке"></textarea>
+            </div>
+            <div class="form__field">
+              <span class="form__label">Где показывать</span>
+              <div class="admin-toggle-row" style="gap: 16px; flex-wrap: wrap">
+                <label><input type="checkbox" id="admin-mapads-place-territory" checked /> Карта территорий</label>
+                <label><input type="checkbox" id="admin-mapads-place-capture" checked /> Захват</label>
+                <label><input type="checkbox" id="admin-mapads-place-training" checked /> Тренировка</label>
+              </div>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-mapads-url">Ссылка (https)</label>
+              <input class="form__input" id="admin-mapads-url" type="url" maxlength="500" placeholder="https://kisfit.ru" />
+            </div>
+            <div class="form__field">
+              <label class="form__label">Точка на карте</label>
+              <p class="muted" style="font-size: 13px; margin: 0 0 8px">Кликните по карте или перетащите метку. Для проверки поставьте точку рядом с местом, где откроете приложение.</p>
+              <div id="admin-mapads-map" style="height: 360px; border-radius: 16px; overflow: hidden; border: 1px solid #ddd"></div>
+              <div style="display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap">
+                <label class="form__label" style="flex: 1; min-width: 140px">
+                  Широта
+                  <input class="form__input" id="admin-mapads-lat" type="number" step="0.000001" min="-90" max="90" placeholder="55.755800" />
+                </label>
+                <label class="form__label" style="flex: 1; min-width: 140px">
+                  Долгота
+                  <input class="form__input" id="admin-mapads-lng" type="number" step="0.000001" min="-180" max="180" placeholder="37.617300" />
+                </label>
+              </div>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-mapads-image">Картинка</label>
+              <input class="form__input" id="admin-mapads-image" type="file" accept="image/png,image/jpeg,image/webp" />
+              <input type="hidden" id="admin-mapads-image-filename" value="" />
+              <div id="admin-mapads-image-preview" style="margin-top: 10px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap"></div>
+            </div>
+            <div id="admin-mapads-msg" class="form__success" hidden></div>
+            <div id="admin-mapads-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+            <div class="form__actions" style="margin-top: 16px; gap: 8px; flex-wrap: wrap">
+              <button type="button" class="btn btn--primary" id="admin-mapads-save">Сохранить</button>
+              <button type="button" class="btn btn--ghost" id="admin-mapads-reset-form">Очистить форму</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Сборки -->
+        <div id="admin-view-releases" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Сборки Android</h2>
+          </div>
+          <p id="admin-releases-status" class="muted admin-section-gap" style="min-height: 1.25em"></p>
+          <div class="form-card admin-release-form admin-section-gap">
+            <form id="admin-release-form" enctype="multipart/form-data">
+              <div class="form__field">
+                <label class="form__label" for="admin-rel-title">Название версии</label>
+                <input
+                  class="form__input"
+                  id="admin-rel-title"
+                  name="titleDisplay"
+                  type="text"
+                  maxlength="140"
+                  required
+                  placeholder="Например: КИСФИТ 1.4 (бета)"
+                />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-rel-desc">Краткое описание</label>
+                <textarea
+                  class="form__textarea"
+                  id="admin-rel-desc"
+                  name="descDisplay"
+                  maxlength="2800"
+                  placeholder="Для экрана тестировщика"
+                ></textarea>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-rel-changelog">Что изменилось</label>
+                <textarea
+                  class="form__textarea"
+                  id="admin-rel-changelog"
+                  name="changelogDisplay"
+                  maxlength="32000"
+                  required
+                  placeholder="Список изменений построчно"
+                ></textarea>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-rel-apk">Файл APK</label>
+                <input
+                  id="admin-rel-apk"
+                  class="modal__file"
+                  type="file"
+                  accept=".apk,application/octet-stream,application/zip,application/vnd.android.package-archive"
+                  required
+                />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-rel-cover">Обложка (необязательно)</label>
+                <input id="admin-rel-cover" class="modal__file" type="file" accept="image/*" />
+              </div>
+              <div id="admin-release-msg" class="form__success" hidden></div>
+              <div id="admin-release-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+              <div id="admin-release-progress" class="admin-release-progress" hidden>
+                <div class="admin-release-progress__track" aria-hidden="true">
+                  <div id="admin-release-progress__fill" class="admin-release-progress__fill"></div>
+                </div>
+                <p id="admin-release-upload-status" class="muted admin-release-upload-status"></p>
+              </div>
+              <div class="form__actions" style="margin-top: 16px">
+                <button type="submit" class="btn btn--primary" id="admin-release-submit">Опубликовать сборку</button>
+              </div>
+            </form>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Название</th>
+                  <th>Файл</th>
+                  <th>Фото</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="admin-releases-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Заявки -->
+        <div id="admin-view-beta" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Заявки на бета</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-beta-refresh">Обновить</button>
+          </div>
+          <p id="admin-status" class="muted admin-section-gap" style="min-height: 1.25em"></p>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Имя</th>
+                  <th>Email</th>
+                  <th>Telegram</th>
+                  <th>Платформа</th>
+                  <th>Комментарий</th>
+                </tr>
+              </thead>
+              <tbody id="admin-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Поддержка -->
+        <div id="admin-view-support" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Поддержка</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-support-refresh">Обновить</button>
+          </div>
+          <p id="admin-support-status" class="muted admin-section-gap" style="min-height: 1.25em"></p>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Причина</th>
+                  <th>Логин</th>
+                  <th>Контакт</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody id="admin-support-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Удаление аккаунтов -->
+        <div id="admin-view-accountdeletion" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Удаление аккаунтов</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-accountdeletion-refresh">Обновить</button>
+          </div>
+          <p id="admin-accountdeletion-status" class="muted admin-section-gap" style="min-height: 1.25em"></p>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Логин / email аккаунта</th>
+                  <th>Email для связи</th>
+                  <th>Комментарий</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody id="admin-accountdeletion-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Заявки на мерч -->
+        <div id="admin-view-merch" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Заявки на мерч</h2>
+            <span class="admin-view-head__grow"></span>
+            <select class="form__input" id="admin-merch-filter" style="max-width: 180px">
+              <option value="">Все статусы</option>
+              <option value="new">Новые</option>
+              <option value="processing">В работе</option>
+              <option value="done">Выполнены</option>
+              <option value="cancelled">Отменены</option>
+            </select>
+            <button type="button" class="btn btn--ghost" id="admin-merch-refresh">Обновить</button>
+          </div>
+          <p id="admin-merch-status" class="muted admin-section-gap" style="min-height: 1.25em"></p>
+          <div class="admin-table-wrap admin-section-gap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Пользователь</th>
+                  <th>Товар</th>
+                  <th>XP</th>
+                  <th>Статус</th>
+                  <th>Источник</th>
+                  <th>Заметка</th>
+                </tr>
+              </thead>
+              <tbody id="admin-merch-tbody"></tbody>
+            </table>
+          </div>
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 14px; font-size: 16px">Добавить заявку вручную</h3>
+            <div class="admin-form-grid">
+              <div class="form__field">
+                <label class="form__label" for="admin-merch-manual-tgid">Telegram ID</label>
+                <input class="form__input" id="admin-merch-manual-tgid" type="text" inputmode="numeric" placeholder="123456789" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-merch-manual-item">Товар</label>
+                <select class="form__input" id="admin-merch-manual-item"></select>
+              </div>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-merch-manual-phone">Телефон (необязательно)</label>
+              <input class="form__input" id="admin-merch-manual-phone" type="text" maxlength="80" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-merch-manual-address">Адрес / доставка (необязательно)</label>
+              <textarea class="form__textarea" id="admin-merch-manual-address" rows="2" maxlength="500"></textarea>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-merch-manual-note">Заметка админа</label>
+              <textarea class="form__textarea" id="admin-merch-manual-note" rows="2" maxlength="2000"></textarea>
+            </div>
+            <div id="admin-merch-msg" class="form__success" hidden></div>
+            <div id="admin-merch-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+            <div class="form__actions" style="margin-top: 16px">
+              <button type="button" class="btn btn--primary" id="admin-merch-manual-submit">Создать заявку</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Магазин XP -->
+        <div id="admin-view-xpshop" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Магазин XP</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-xpshop-refresh">Обновить</button>
+            <button type="button" class="btn btn--primary" id="admin-xpshop-save">Сохранить</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 820px">
+            Управление мерчем и виртуальными товарами в приложении. Программы тренировок настраиваются отдельно
+            в разделе «Программы тренировок» (цена XP и флаг «можно купить»).
+          </p>
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Общие настройки</h3>
+            <label class="form__label" style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <input type="checkbox" id="admin-xpshop-global-enabled" />
+              Покупки в магазине включены
+            </label>
+            <label class="form__label" style="display:flex;align-items:center;gap:8px">
+              <input type="checkbox" id="admin-xpshop-programs-enabled" />
+              Можно покупать программы тренировок
+            </label>
+          </div>
+          <div class="admin-table-wrap admin-section-gap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="min-width:220px">Товар</th>
+                  <th style="width:110px">Категория</th>
+                  <th style="width:110px">Цена XP</th>
+                  <th style="width:110px">В каталоге</th>
+                  <th style="width:130px">Можно купить</th>
+                </tr>
+              </thead>
+              <tbody id="admin-xpshop-tbody"></tbody>
+            </table>
+          </div>
+          <div id="admin-xpshop-msg" class="form__success" hidden></div>
+          <div id="admin-xpshop-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+        </div>
+
+        <!-- Программы тренировок -->
+        <div id="admin-view-programs" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Программы тренировок</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-prog-refresh">Обновить</button>
+            <button type="button" class="btn btn--primary" id="admin-prog-new">Новая</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 760px">
+            Программы отображаются в приложении при статусе <strong>active</strong>. После покупки пользователь скачивает PDF с сервера.
+          </p>
+          <div class="admin-programs-layout admin-section-gap">
+            <div class="form-card">
+              <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Каталог</h3>
+              <div id="admin-prog-list"></div>
+            </div>
+            <div class="form-card">
+              <p class="muted" style="margin: 0 0 12px; font-size: 13px">
+                ID: <span id="admin-prog-cur-id">—</span>
+              </p>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-id">ID (пусто = авто)</label>
+                  <input class="form__input" id="admin-prog-id" type="text" placeholder="prog_…" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-status">Статус</label>
+                  <select class="form__input" id="admin-prog-status">
+                    <option value="draft">draft</option>
+                    <option value="active">active</option>
+                    <option value="archived">archived</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-prog-athlete">Спортсмен</label>
+                <input class="form__input" id="admin-prog-athlete" type="text" maxlength="120" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-prog-title">Название программы</label>
+                <input class="form__input" id="admin-prog-title" type="text" maxlength="200" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-prog-desc">Описание</label>
+                <textarea class="form__textarea" id="admin-prog-desc" rows="3" maxlength="2000"></textarea>
+              </div>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-weeks">Недель</label>
+                  <input class="form__input" id="admin-prog-weeks" type="number" min="0" value="0" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-participants">Участников (подсказка)</label>
+                  <input class="form__input" id="admin-prog-participants" type="number" min="0" value="0" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-old-price">Цена ₽ (зачёркнутая)</label>
+                  <input class="form__input" id="admin-prog-old-price" type="number" min="0" value="0" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-xp">Цена XP</label>
+                  <input class="form__input" id="admin-prog-xp" type="number" min="0" value="0" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-rating">Рейтинг</label>
+                  <input class="form__input" id="admin-prog-rating" type="number" min="0" step="0.1" value="0" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-prog-sort">Сортировка</label>
+                  <input class="form__input" id="admin-prog-sort" type="number" value="0" />
+                </div>
+              </div>
+              <label class="form__label" style="display:flex;align-items:center;gap:8px;margin-top:4px">
+                <input type="checkbox" id="admin-prog-purchasable" checked />
+                Можно купить за XP
+              </label>
+              <div class="form__field">
+                <label class="form__label" for="admin-prog-cover">Обложка (filename)</label>
+                <input class="form__input" id="admin-prog-cover" type="text" placeholder="после загрузки" />
+                <input class="modal__file" id="admin-prog-cover-file" type="file" accept="image/*" style="margin-top: 8px" />
+                <button type="button" class="btn btn--ghost" id="admin-prog-upload-cover" style="margin-top: 8px">Загрузить обложку</button>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-prog-pdf">PDF (filename)</label>
+                <input class="form__input" id="admin-prog-pdf" type="text" placeholder="после загрузки" />
+                <input class="modal__file" id="admin-prog-pdf-file" type="file" accept="application/pdf" style="margin-top: 8px" />
+                <button type="button" class="btn btn--ghost" id="admin-prog-upload-pdf" style="margin-top: 8px">Загрузить PDF</button>
+              </div>
+              <div id="admin-prog-msg" class="form__success" hidden></div>
+              <div id="admin-prog-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+              <div class="form__actions" style="margin-top: 16px">
+                <button type="button" class="btn btn--primary" id="admin-prog-save">Сохранить</button>
+                <button type="button" class="btn btn--danger-outline" id="admin-prog-delete">Удалить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Турниры -->
+        <div id="admin-view-events" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Турниры</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-evt-refresh">Обновить</button>
+            <button type="button" class="btn btn--primary" id="admin-evt-new">Новый турнир</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 820px">
+            Чтобы турнир появился в приложении, установите статус <strong>Запланирован</strong> и укажите дату анонса
+            и старта. Прогресс-бар в приложении настраивается в JSON правил: <code>goal_xp</code>,
+            <code>goal_steps</code>, <code>goal_meters</code> и т.д.
+          </p>
+          <div class="form-card admin-section-gap" style="font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.78)">
+            <strong style="color: rgba(255,255,255,0.92)">Рекомендуемые размеры изображений</strong>
+            <ul style="margin: 10px 0 0; padding-left: 18px">
+              <li><strong>Баннер турнира</strong> — <strong>1200×450 px</strong> (соотношение 16:6). На главном и в турнире показывается целиком, без обрезки. PNG/WebP, до 8 МБ.</li>
+              <li><strong>Награды</strong> — <strong>512×512 px</strong>, квадрат, PNG/WebP.</li>
+            </ul>
+          </div>
+          <div class="admin-programs-layout admin-section-gap">
+            <div class="form-card">
+              <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Список турниров</h3>
+              <div id="admin-evt-list"></div>
+            </div>
+            <div class="form-card">
+              <p class="muted" style="margin: 0 0 12px; font-size: 13px">
+                Выбран: <span id="admin-evt-cur-id">—</span>
+              </p>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-id">ID (пусто = авто)</label>
+                  <input class="form__input" id="admin-evt-id" type="text" placeholder="evt_…" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-status">Статус</label>
+                  <select class="form__input" id="admin-evt-status">
+                    <option value="draft">Черновик</option>
+                    <option value="scheduled">Запланирован</option>
+                    <option value="active">Идёт сейчас</option>
+                    <option value="ended">Завершён</option>
+                    <option value="archived">В архиве</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-title">Название</label>
+                <input class="form__input" id="admin-evt-title" type="text" maxlength="200" placeholder="Турнир недели" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-subtitle">Подзаголовок</label>
+                <input class="form__input" id="admin-evt-subtitle" type="text" maxlength="200" placeholder="Собери больше XP за 7 дней" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-desc">Описание</label>
+                <textarea class="form__textarea" id="admin-evt-desc" rows="3" maxlength="4000"></textarea>
+              </div>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-ann">Анонс</label>
+                  <input class="form__input" id="admin-evt-ann" type="text" placeholder="10.04.2026 12:00" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-start">Старт</label>
+                  <input class="form__input" id="admin-evt-start" type="text" placeholder="10.04.2026 18:00" />
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-end">Конец</label>
+                <input class="form__input" id="admin-evt-end" type="text" placeholder="17.04.2026 18:00" />
+              </div>
+              <p class="muted" style="margin: 0 0 12px; font-size: 12px">Формат даты: ДД.ММ.ГГГГ ЧЧ:ММ</p>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-banner">Главный экран (имя файла или URL)</label>
+                  <input class="form__input" id="admin-evt-banner" type="text" placeholder="home-banner.png" />
+                  <p class="muted" style="margin: 6px 0 0; font-size: 12px">Рекомендуется 1200×450 px (16:6), PNG/WebP — баннер на главном экране</p>
+                  <input class="modal__file" id="admin-evt-banner-file" type="file" accept="image/*" style="margin-top: 8px" />
+                  <button type="button" class="btn btn--ghost" id="admin-evt-upload-banner" style="margin-top: 8px">Загрузить для главного экрана</button>
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-detail-banner">Экран турнира (имя файла или URL)</label>
+                  <input class="form__input" id="admin-evt-detail-banner" type="text" placeholder="detail-banner.png" />
+                  <p class="muted" style="margin: 6px 0 0; font-size: 12px">Рекомендуется 1200×675 px (16:9), PNG/WebP — картинка на экране турнира</p>
+                  <input class="modal__file" id="admin-evt-detail-banner-file" type="file" accept="image/*" style="margin-top: 8px" />
+                  <button type="button" class="btn btn--ghost" id="admin-evt-upload-detail-banner" style="margin-top: 8px">Загрузить для экрана турнира</button>
+                </div>
+              </div>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-bg">Цвет фона баннера</label>
+                  <input class="form__input" id="admin-evt-bg" type="text" placeholder="#1a2a52" />
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-link">Deep link (необязательно)</label>
+                <input class="form__input" id="admin-evt-link" type="text" placeholder="kisfit://event/evt_…" />
+              </div>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-lb-en">Лидерборд</label>
+                  <select class="form__input" id="admin-evt-lb-en">
+                    <option value="1">Включён</option>
+                    <option value="0">Выключен</option>
+                  </select>
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-lb-metric">Метрика лидерборда</label>
+                  <select class="form__input" id="admin-evt-lb-metric">
+                    <option value="">— не выбрана —</option>
+                    <option value="xp_gained">XP за период</option>
+                    <option value="steps">Шаги</option>
+                    <option value="distance_meters">Дистанция (м)</option>
+                    <option value="pushups_reps_est">Отжимания</option>
+                    <option value="territory_captured">Территория: захвачено за турнир (м²)</option>
+                    <option value="territory_held">Территория: удерживается на конец (м²)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-lb-agg">Агрегация</label>
+                <select class="form__input" id="admin-evt-lb-agg">
+                  <option value="sum">Сумма за период</option>
+                  <option value="max">Максимум</option>
+                </select>
+              </div>
+              <h4 class="h3" style="margin: 18px 0 8px; font-size: 15px">Участие</h4>
+              <div class="admin-form-grid">
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-format">Формат</label>
+                  <select class="form__input" id="admin-evt-format">
+                    <option value="solo">Соло</option>
+                    <option value="team">Командный</option>
+                  </select>
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-visibility">Видимость</label>
+                  <select class="form__input" id="admin-evt-visibility">
+                    <option value="public">Виден всем (баннер и список турниров)</option>
+                    <option value="hidden">Скрытый — только по коду или ссылке</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-access">Как вступить</label>
+                <select class="form__input" id="admin-evt-access">
+                  <option value="auto">Автоматически — участвуют все</option>
+                  <option value="opt_in">Кнопка «Участвовать»</option>
+                  <option value="code">По коду (открыл турнир → ввёл код)</option>
+                </select>
+              </div>
+              <p class="muted" id="admin-evt-access-hint" style="margin: 0 0 10px; font-size: 12px"></p>
+              <div id="admin-evt-team-wrap" hidden>
+                <div class="admin-form-grid">
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-team-max">Макс. участников в команде</label>
+                    <input class="form__input" id="admin-evt-team-max" type="number" min="1" max="100" placeholder="5" />
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-team-min">Мин. участников для зачёта</label>
+                    <input class="form__input" id="admin-evt-team-min" type="number" min="1" max="100" placeholder="1" />
+                  </div>
+                </div>
+                <div class="admin-form-grid">
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-team-by">Кто создаёт команды</label>
+                    <select class="form__input" id="admin-evt-team-by">
+                      <option value="users">Пользователи</option>
+                      <option value="admin">Только администратор</option>
+                      <option value="both">Пользователи и администратор</option>
+                    </select>
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-team-lock">Заморозка состава до конца (часов)</label>
+                    <input class="form__input" id="admin-evt-team-lock" type="number" min="0" placeholder="24" />
+                  </div>
+                </div>
+              </div>
+              <div class="form__field" id="admin-evt-dist-wrap" hidden>
+                <label class="form__label" for="admin-evt-dist">Источник дистанции</label>
+                <select class="form__input" id="admin-evt-dist">
+                  <option value="workouts">GPS-тренировки</option>
+                  <option value="pedometer">Шагомер (дистанция за день)</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-rules">Правила (JSON)</label>
+                <textarea class="form__textarea" id="admin-evt-rules" rows="5" spellcheck="false" placeholder='{"goal_xp":25000,"period_badge":"Еженедельный"}'></textarea>
+              </div>
+              <div id="admin-evt-msg" class="form__success" hidden></div>
+              <div id="admin-evt-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+              <div class="form__actions" style="margin-top: 16px">
+                <button type="button" class="btn btn--primary" id="admin-evt-save">Сохранить турнир</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap" id="admin-evt-look-card">
+            <style>
+              .look-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+              @media (max-width:980px){.look-grid{grid-template-columns:1fr}}
+              .look-group{border-top:1px solid rgba(255,255,255,.18);padding-top:12px;margin-top:12px}
+              .look-group h4{margin:0 0 10px;font-size:14px}
+              .look-presets{display:flex;flex-wrap:wrap;gap:8px}
+              .look-preset{border:2px solid #e5e7eb;border-radius:12px;padding:6px 10px;background:#fff;color:#111827;cursor:pointer;display:flex;align-items:center;gap:8px;font:600 13px Inter,system-ui,sans-serif}
+              .look-preset.is-active{border-color:#111827}
+              .look-preset i{width:18px;height:18px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.1)}
+              .look-colors{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+              .look-color{display:flex;align-items:center;gap:8px;font-size:13px}
+              .look-color input[type=color]{width:38px;height:30px;border:1px solid #e5e7eb;border-radius:8px;padding:0;background:none}
+              .look-sections{display:flex;flex-direction:column;gap:6px}
+              .look-section{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:10px;padding:6px 10px;background:#fff;color:#111827;font-size:13px}
+              .look-section span{flex:1}
+              .look-section button{border:1px solid #e5e7eb;background:#f9fafb;color:#111827;border-radius:8px;width:28px;height:26px;cursor:pointer}
+              .look-phone{position:sticky;top:12px;width:320px;height:640px;border-radius:36px;border:10px solid #111827;overflow:hidden;background:#f5f5f5;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+              .look-phone__scroll{height:100%;overflow-y:auto;font-family:Inter,system-ui,sans-serif}
+              .lp-hero{position:relative;margin:10px;border-radius:16px;overflow:hidden;background-size:cover;background-position:center;display:flex;flex-direction:column;justify-content:space-between;padding:12px}
+              .lp-pill{display:inline-block;font:700 10px Inter,sans-serif;color:#fff;background:rgba(255,255,255,.22);border-radius:99px;padding:4px 8px}
+              .lp-card{margin:8px 10px;border-radius:14px;padding:12px;font-size:12px}
+              .lp-h{font:800 13px Inter,sans-serif;margin:0 0 4px}
+              .lp-btn{border-radius:10px;padding:9px;text-align:center;font:700 12px Inter,sans-serif;color:#fff;margin-top:8px}
+              .lp-tabs{display:flex;margin:10px;border-radius:12px;padding:3px}
+              .lp-tabs div{flex:1;text-align:center;padding:7px;border-radius:10px;font:700 11px Inter,sans-serif}
+              .lp-row{display:flex;justify-content:space-between;margin:6px 10px;border-radius:12px;padding:9px 12px;font:600 12px Inter,sans-serif}
+              .lp-podium{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin:10px}
+              .lp-podium div{width:70px;border-radius:10px 10px 4px 4px;text-align:center;color:#fff;font:800 12px Inter,sans-serif;padding-top:6px}
+              .lp-s-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 6px;font:600 12px Inter,sans-serif;color:#111}
+              .lp-s-badge{border:1.2px solid #111;border-radius:4px;padding:4px 8px;font:800 8px Inter,sans-serif;letter-spacing:.08em;background:#fff}
+              .lp-s-hero{margin:0 12px;height:168px;border-radius:16px;background:#111}
+              .lp-s-marquee{overflow:hidden;margin:10px 0 0;padding:8px 0;white-space:nowrap}
+              .lp-s-marquee__track{display:inline-block;font:800 11px Inter,sans-serif;letter-spacing:.06em;color:#111;animation:lp-marquee 14s linear infinite}
+              @keyframes lp-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+              .lp-s-info{display:flex;gap:10px;padding:14px 12px 0}
+              .lp-s-sq{width:32px;height:32px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font:900 16px Inter,sans-serif;color:#111}
+              .lp-s-kicker{font:700 9px Inter,sans-serif;letter-spacing:.12em;color:#8A9086}
+              .lp-s-title,.lp-s-h{font:900 15px Inter,sans-serif;color:#111;line-height:1.15;margin-top:2px}
+              .lp-s-h{font-size:18px}
+              .lp-s-h span{font-style:italic;margin-right:4px}
+              .lp-s-sub{font:400 11px Inter,sans-serif;color:#8A9086;margin-top:4px;line-height:1.35}
+              .lp-s-join{position:relative;margin:12px 12px 0;background:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;overflow:hidden}
+              .lp-s-join__mark{width:22px;height:22px;border-radius:50%;background:#111;color:#C6FF00;display:flex;align-items:center;justify-content:center;font:800 11px Inter,sans-serif;flex:none}
+              .lp-s-join__title{font:800 13px Inter,sans-serif;color:#111}
+              .lp-s-join__sub{font:400 10px Inter,sans-serif;color:#8A9086;margin-top:2px}
+              .lp-s-join__idx{position:absolute;right:10px;bottom:4px;font:900 28px Inter,sans-serif;font-style:italic;color:rgba(0,0,0,.08)}
+              .lp-s-live{margin:10px 12px 0;border-radius:18px;color:#fff;padding:12px}
+              .lp-s-live__top{display:flex;justify-content:space-between;align-items:center}
+              .lp-s-top1{font:900 9px Inter,sans-serif;border-radius:5px;padding:3px 7px}
+              .lp-s-live__h{font:800 15px Inter,sans-serif;margin:8px 0 12px}
+              .lp-s-live__row{display:flex;justify-content:space-between;gap:8px}
+              .lp-s-live__row div{flex:1;border-left:1px solid rgba(255,255,255,.18);padding-left:8px}
+              .lp-s-live__row div:first-child{border:0;padding:0}
+              .lp-s-live__row b{display:block;font:800 16px Inter,sans-serif}
+              .lp-s-live__row span{font:700 8px Inter,sans-serif;letter-spacing:.08em;color:rgba(255,255,255,.55);text-transform:uppercase}
+              .lp-s-bar{height:5px;border-radius:9px;background:rgba(255,255,255,.2);margin-top:12px;overflow:hidden}
+              .lp-s-bar i{display:block;width:42%;height:100%}
+              .lp-s-sec{padding:14px 12px 0}
+              .lp-s-map{margin-top:8px;height:110px;border-radius:12px;background:repeating-linear-gradient(0deg,#cfd1c6,#cfd1c6 12px,#d8dacf 12px,#d8dacf 24px);display:flex;align-items:center;justify-content:center;position:relative}
+              .lp-s-pin{font-size:42px;line-height:1}
+              .lp-s-cap{margin-top:8px;background:#fff;border:1.5px solid #111;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;font:800 12px Inter,sans-serif;color:#111;box-shadow:4px 4px 0 #111}
+              .lp-s-cap__ok{width:18px;height:18px;border-radius:50%;background:#111;color:#C6FF00;display:flex;align-items:center;justify-content:center;font-size:10px}
+              .lp-s-cap span:last-child{margin-left:auto}
+              .lp-s-tabs{display:flex;gap:6px;margin:12px 12px 0}
+              .lp-s-tabs div{flex:1;text-align:center;border-radius:12px;padding:9px 6px;font:800 11px Inter,sans-serif;background:#E6E7DC;color:#9AA193}
+              .lp-s-lb{margin:8px 12px 16px;background:#fff;border-radius:14px;overflow:hidden}
+              .lp-s-lb div{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid #E8E9DF;font:700 12px Inter,sans-serif;color:#111}
+              .lp-s-lb div:first-child{border:0}
+              .lp-s-lb span{font:900 13px Inter,sans-serif;font-style:italic;width:28px}
+              .lp-s-lb b{flex:1;font-weight:700}
+              .lp-s-lb em{font-style:normal;font-weight:800}
+            </style>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <h3 class="h3" style="margin: 0; font-size: 16px">Оформление страницы турнира</h3>
+              <button type="button" class="btn btn--ghost" id="admin-look-reset">Сбросить к стандартному</button>
+            </div>
+            <p class="muted" style="margin: 6px 0 0; font-size: 13px">
+              Выберите готовую тему и подправьте детали — справа сразу видно, как страница будет выглядеть в приложении.
+              Тема «Смелость» включает свою вёрстку (бегущая строка, лаймовые квадраты, Live Result, пин на карте).
+              Цвета после выбора можно менять — вёрстка останется. Сохраните турнир, чтобы увидеть это в приложении.
+              Позже сюда можно будет подключать кастомные дизайн-паки с картинками.
+            </p>
+            <div class="look-grid">
+              <div>
+                <div class="look-group" style="border-top:0">
+                  <h4>Готовые темы</h4>
+                  <div class="look-presets" id="admin-look-presets"></div>
+                </div>
+
+                <div class="look-group">
+                  <h4>Цвета</h4>
+                  <div class="look-colors">
+                    <label class="look-color"><input type="color" id="admin-look-accent" /> Акцент (кнопки)</label>
+                    <label class="look-color"><input type="color" id="admin-look-bg" /> Фон страницы</label>
+                    <label class="look-color"><input type="color" id="admin-look-bg2" /> Фон, низ градиента</label>
+                    <label class="look-color"><input type="color" id="admin-look-progress" /> Блок прогресса</label>
+                    <label class="look-color"><input type="color" id="admin-look-progress2" /> Прогресс, 2-й цвет</label>
+                  </div>
+                  <div class="admin-form-grid" style="margin-top:10px">
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-surface">Карточки</label>
+                      <select class="form__input" id="admin-look-surface">
+                        <option value="light">Светлые</option>
+                        <option value="dark">Тёмные</option>
+                      </select>
+                    </div>
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-progress-style">Заливка блока прогресса</label>
+                      <select class="form__input" id="admin-look-progress-style">
+                        <option value="solid">Сплошная</option>
+                        <option value="gradient">Градиент</option>
+                      </select>
+                    </div>
+                  </div>
+                  <label style="font-size:13px"><input type="checkbox" id="admin-look-bg-gradient" /> Фон страницы градиентом</label>
+                </div>
+
+                <div class="look-group">
+                  <h4>Шапка с картинкой</h4>
+                  <div class="admin-form-grid">
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-hero-height">Высота</label>
+                      <select class="form__input" id="admin-look-hero-height">
+                        <option value="compact">Компактная</option>
+                        <option value="normal">Обычная</option>
+                        <option value="tall">Высокая</option>
+                      </select>
+                    </div>
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-title-align">Заголовок</label>
+                      <select class="form__input" id="admin-look-title-align">
+                        <option value="left">Слева</option>
+                        <option value="center">По центру</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="admin-form-grid">
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-overlay">Затемнение картинки: <b id="admin-look-overlay-val">70</b>%</label>
+                      <input id="admin-look-overlay" type="range" min="0" max="100" step="5" style="width:100%" />
+                    </div>
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-icon">Значок перед названием</label>
+                      <input class="form__input" id="admin-look-icon" type="text" maxlength="4" placeholder="пусто — без значка" />
+                    </div>
+                  </div>
+                  <label style="font-size:13px;margin-right:14px"><input type="checkbox" id="admin-look-show-title" /> Название поверх картинки</label>
+                  <label style="font-size:13px"><input type="checkbox" id="admin-look-show-timer" /> Таймер до конца</label>
+                  <p class="muted" style="font-size:12px;margin:6px 0 0">Если название уже нарисовано на картинке — отключите «Название поверх картинки» и затемнение.</p>
+                </div>
+
+                <div class="look-group">
+                  <h4>Блоки страницы: порядок и видимость</h4>
+                  <div class="look-sections" id="admin-look-sections"></div>
+                  <div class="admin-form-grid" style="margin-top:10px">
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-default-tab">Открытая вкладка</label>
+                      <select class="form__input" id="admin-look-default-tab">
+                        <option value="rewards">Награды</option>
+                        <option value="leaderboard">Лидерборд</option>
+                      </select>
+                    </div>
+                    <div class="form__field" style="display:flex;align-items:flex-end">
+                      <label style="font-size:13px"><input type="checkbox" id="admin-look-podium" /> Пьедестал для топ-3</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="look-group">
+                  <h4>Объявление вверху страницы</h4>
+                  <div class="form__field">
+                    <textarea class="form__textarea" id="admin-look-notice" rows="2" maxlength="240" placeholder="Например: «Финал в воскресенье в 20:00 — успейте попасть в топ!»"></textarea>
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="admin-look-notice-style">Цвет плашки</label>
+                    <select class="form__input" id="admin-look-notice-style">
+                      <option value="accent">Акцентный</option>
+                      <option value="info">Синий — информация</option>
+                      <option value="success">Зелёный — хорошая новость</option>
+                      <option value="warning">Жёлтый — важно</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="look-group">
+                  <h4>Свои подписи</h4>
+                  <div class="admin-form-grid">
+                    <div class="form__field"><label class="form__label" for="admin-look-t-join">Кнопка участия</label><input class="form__input" id="admin-look-t-join" maxlength="30" placeholder="Участвовать" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-t-progress">Заголовок прогресса</label><input class="form__input" id="admin-look-t-progress" maxlength="40" placeholder="Ваш прогресс" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-t-desc">Заголовок описания</label><input class="form__input" id="admin-look-t-desc" maxlength="40" placeholder="Описание" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-t-task">Заголовок задания</label><input class="form__input" id="admin-look-t-task" maxlength="40" placeholder="Задание" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-t-rewards">Вкладка наград</label><input class="form__input" id="admin-look-t-rewards" maxlength="24" placeholder="Награды" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-t-lb">Вкладка рейтинга</label><input class="form__input" id="admin-look-t-lb" maxlength="24" placeholder="Лидерборд" /></div>
+                  </div>
+                </div>
+
+                <div class="look-group">
+                  <h4>Партнёр турнира</h4>
+                  <div class="admin-form-grid">
+                    <div class="form__field"><label class="form__label" for="admin-look-sp-title">Название</label><input class="form__input" id="admin-look-sp-title" maxlength="60" placeholder="Спортмастер" /></div>
+                    <div class="form__field"><label class="form__label" for="admin-look-sp-url">Ссылка</label><input class="form__input" id="admin-look-sp-url" maxlength="300" placeholder="https://…" /></div>
+                  </div>
+                  <div class="form__field"><label class="form__label" for="admin-look-sp-text">Текст</label><input class="form__input" id="admin-look-sp-text" maxlength="240" placeholder="Промокод KISFIT на скидку 15%" /></div>
+                  <div class="admin-form-grid">
+                    <div class="form__field"><label class="form__label" for="admin-look-sp-btn">Текст кнопки</label><input class="form__input" id="admin-look-sp-btn" maxlength="30" placeholder="Подробнее" /></div>
+                    <div class="form__field">
+                      <label class="form__label" for="admin-look-sp-file">Логотип / картинка</label>
+                      <input class="form__input" id="admin-look-sp-file" type="file" accept="image/png,image/jpeg,image/webp" />
+                      <input type="hidden" id="admin-look-sp-image" />
+                      <button type="button" class="btn btn--ghost btn--sm" id="admin-look-sp-upload" style="margin-top:6px">Загрузить</button>
+                      <span class="muted" id="admin-look-sp-image-name" style="font-size:12px"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="look-phone"><div class="look-phone__scroll" id="admin-look-preview"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 8px; font-size: 16px">Задачи турнира</h3>
+            <p class="muted" style="margin: 0 0 14px; font-size: 13px">Сначала сохраните турнир, затем добавьте задачи.</p>
+            <div id="admin-evt-tasks-list" class="admin-section-gap"></div>
+            <div class="admin-form-grid">
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-task-title">Название задачи</label>
+                <input class="form__input" id="admin-evt-task-title" type="text" maxlength="200" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-task-metric">Метрика</label>
+                <select class="form__input" id="admin-evt-task-metric">
+                  <option value="xp_gained">XP за период</option>
+                  <option value="steps">Шаги</option>
+                  <option value="distance_meters">Дистанция (м)</option>
+                  <option value="pushups_reps_est">Отжимания</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-task-agg">Агрегация</label>
+                <select class="form__input" id="admin-evt-task-agg">
+                  <option value="sum">Сумма</option>
+                  <option value="max">Максимум</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-task-target">Цель (необязательно)</label>
+                <input class="form__input" id="admin-evt-task-target" type="number" min="0" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-task-sort">Порядок</label>
+                <input class="form__input" id="admin-evt-task-sort" type="number" value="0" />
+              </div>
+              <div class="form__field" style="display: flex; align-items: flex-end">
+                <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer">
+                  <input type="checkbox" id="admin-evt-task-visible" checked />
+                  Показывать в приложении
+                </label>
+              </div>
+            </div>
+            <input type="hidden" id="admin-evt-task-id" value="" />
+            <div class="form__actions" style="margin-top: 12px">
+              <button type="button" class="btn btn--primary" id="admin-evt-task-save">Добавить задачу</button>
+              <button type="button" class="btn btn--ghost" id="admin-evt-task-reset">Сбросить форму</button>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <h3 class="h3" style="margin: 0 0 8px; font-size: 16px">Награды лидерборда</h3>
+            <p class="muted" style="margin: 0 0 14px; font-size: 13px">Награды выдаются по местам в таблице лидеров.</p>
+            <div id="admin-evt-rewards-list" class="admin-section-gap"></div>
+            <div class="admin-form-grid">
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-title">Название награды</label>
+                <input class="form__input" id="admin-evt-reward-title" type="text" maxlength="200" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-type">Тип</label>
+                <select class="form__input" id="admin-evt-reward-type">
+                  <option value="xp">XP</option>
+                  <option value="character">Персонаж</option>
+                  <option value="item">Предмет</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-place-from">Место от</label>
+                <input class="form__input" id="admin-evt-reward-place-from" type="number" min="1" placeholder="1" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-place-to">Место до</label>
+                <input class="form__input" id="admin-evt-reward-place-to" type="number" min="1" placeholder="1" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-xp">Количество XP</label>
+                <input class="form__input" id="admin-evt-reward-xp" type="number" min="0" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-key">Ключ (character_id и т.п.)</label>
+                <input class="form__input" id="admin-evt-reward-key" type="text" placeholder="char_legend_1" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-badge">Бейдж</label>
+                <select class="form__input" id="admin-evt-reward-badge">
+                  <option value="virtual">Виртуальная</option>
+                  <option value="real">Реальный приз</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-reward-rarity">Редкость</label>
+                <select class="form__input" id="admin-evt-reward-rarity">
+                  <option value="common">Обычная</option>
+                  <option value="rare">Редкая</option>
+                  <option value="epic">Эпическая</option>
+                  <option value="legendary">Легендарная</option>
+                </select>
+              </div>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-evt-reward-desc">Описание</label>
+              <textarea class="form__textarea" id="admin-evt-reward-desc" rows="2" maxlength="1000"></textarea>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-evt-reward-image">Картинка (имя файла или URL)</label>
+              <input class="form__input" id="admin-evt-reward-image" type="text" />
+              <p class="muted" style="margin: 6px 0 0; font-size: 12px">Рекомендуется 512×512 px, PNG/WebP</p>
+              <input class="modal__file" id="admin-evt-reward-image-file" type="file" accept="image/*" style="margin-top: 8px" />
+              <button type="button" class="btn btn--ghost" id="admin-evt-upload-reward" style="margin-top: 8px">Загрузить картинку</button>
+            </div>
+            <input type="hidden" id="admin-evt-reward-id" value="" />
+            <div class="form__actions" style="margin-top: 12px">
+              <button type="button" class="btn btn--primary" id="admin-evt-reward-save">Добавить награду</button>
+              <button type="button" class="btn btn--ghost" id="admin-evt-reward-reset">Сбросить форму</button>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <h3 class="h3" style="margin: 0; font-size: 16px">Итоги турнира и участники</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button type="button" class="btn btn--ghost" id="admin-evt-results-refresh">Обновить итоги</button>
+                <button type="button" class="btn btn--ghost" id="admin-evt-participants-xlsx">Скачать участников</button>
+                <button type="button" class="btn btn--primary" id="admin-evt-finalize">Финализировать и выдать награды</button>
+              </div>
+            </div>
+            <p class="muted" style="margin: 8px 0 14px; font-size: 13px">
+              Таблица показывает всех участников турнира. После финализации награды начисляются автоматически, а список участников сохраняется.
+            </p>
+            <div id="admin-evt-results-meta" class="muted" style="font-size: 12px; margin-bottom: 10px">—</div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width:70px">Место</th>
+                    <th style="min-width:220px">Пользователь</th>
+                    <th style="width:110px">Очки</th>
+                    <th style="min-width:220px">Выигрыш</th>
+                    <th style="min-width:220px">Профиль</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-evt-results-tbody">
+                  <tr><td colspan="5" class="muted">Выберите турнир и нажмите «Обновить итоги».</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-card admin-section-gap" id="admin-evt-codes-card" hidden>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <h3 class="h3" style="margin: 0; font-size: 16px">Коды турнира</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button type="button" class="btn btn--ghost" id="admin-evt-codes-refresh">Обновить</button>
+                <button type="button" class="btn btn--ghost" id="admin-evt-codes-copy">Скопировать активные</button>
+                <button type="button" class="btn btn--ghost" id="admin-evt-codes-csv">Скачать CSV</button>
+              </div>
+            </div>
+            <p class="muted" style="margin: 8px 0 12px; font-size: 13px">
+              Кодов может быть сколько угодно, их можно добавлять и во время турнира. Пользователь вводит любой активный код — и сразу становится участником.
+              Одноразовые коды удобно раздавать по одному на человека.
+            </p>
+            <div id="admin-evt-codes-meta" class="muted" style="font-size: 12px; margin-bottom: 10px">—</div>
+
+            <div class="admin-form-grid">
+              <div class="form-card" style="margin:0;padding:14px">
+                <h4 style="margin:0 0 10px;font-size:14px">Сгенерировать автоматически</h4>
+                <div class="admin-form-grid">
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-codes-count">Сколько кодов</label>
+                    <input class="form__input" id="admin-evt-codes-count" type="number" min="1" max="1000" value="10" />
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="admin-evt-codes-prefix">Префикс (необязательно)</label>
+                    <input class="form__input" id="admin-evt-codes-prefix" type="text" maxlength="8" placeholder="SCH" style="text-transform:uppercase" />
+                  </div>
+                </div>
+                <div class="form__actions" style="margin-top:4px">
+                  <button type="button" class="btn btn--primary" id="admin-evt-codes-generate">Сгенерировать</button>
+                </div>
+              </div>
+              <div class="form-card" style="margin:0;padding:14px">
+                <h4 style="margin:0 0 10px;font-size:14px">Добавить вручную</h4>
+                <div class="form__field">
+                  <label class="form__label" for="admin-evt-codes-manual">Коды — по одному в строке или через запятую</label>
+                  <textarea class="form__textarea" id="admin-evt-codes-manual" rows="3" spellcheck="false" placeholder="VIP2026&#10;MOSCOW-RUN" style="font-family:ui-monospace,monospace;text-transform:uppercase"></textarea>
+                </div>
+                <div class="form__actions" style="margin-top:4px">
+                  <button type="button" class="btn btn--primary" id="admin-evt-codes-add">Добавить</button>
+                </div>
+              </div>
+            </div>
+            <div class="admin-form-grid" style="margin-top:12px">
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-codes-uses">Использований на код (для новых кодов)</label>
+                <select class="form__input" id="admin-evt-codes-uses">
+                  <option value="">Без ограничений</option>
+                  <option value="1">1 — одноразовый</option>
+                  <option value="custom">Своё число…</option>
+                </select>
+                <input class="form__input" id="admin-evt-codes-uses-custom" type="number" min="1" placeholder="Например, 30" hidden style="margin-top:6px" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-codes-label">Метка (для кого коды)</label>
+                <input class="form__input" id="admin-evt-codes-label" type="text" maxlength="80" placeholder="Школа №5, партнёр, блогер…" />
+              </div>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-evt-codes-expires">Действует до (необязательно)</label>
+              <input class="form__input" id="admin-evt-codes-expires" type="datetime-local" />
+            </div>
+            <div id="admin-evt-codes-msg" class="form__success" hidden></div>
+            <div id="admin-evt-codes-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 8px">
+              <input class="form__input" id="admin-evt-codes-search" type="search" placeholder="Поиск по коду или метке" style="flex:1;min-width:180px" />
+              <select class="form__input" id="admin-evt-codes-filter" style="width:auto">
+                <option value="">Все</option>
+                <option value="active">Активные</option>
+                <option value="used">Использованные</option>
+                <option value="unused">Не использованные</option>
+                <option value="exhausted">Исчерпаны</option>
+                <option value="expired">Истёк срок</option>
+                <option value="disabled">Отключены</option>
+              </select>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="min-width:130px">Код</th>
+                    <th style="min-width:140px">Метка</th>
+                    <th style="width:110px">Использований</th>
+                    <th style="width:110px">Статус</th>
+                    <th style="width:140px">Создан</th>
+                    <th style="min-width:230px"></th>
+                  </tr>
+                </thead>
+                <tbody id="admin-evt-codes-tbody"></tbody>
+              </table>
+            </div>
+            <div id="admin-evt-code-users" class="muted" style="font-size:13px;margin-top:10px"></div>
+          </div>
+
+          <div class="form-card admin-section-gap" id="admin-evt-teams-card" hidden>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+              <h3 class="h3" style="margin: 0; font-size: 16px">Команды турнира</h3>
+              <button type="button" class="btn btn--ghost" id="admin-evt-teams-refresh">Обновить</button>
+            </div>
+            <div id="admin-evt-teams-meta" class="muted" style="font-size: 12px; margin: 8px 0 10px">—</div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width:60px">Место</th>
+                    <th style="min-width:180px">Команда</th>
+                    <th style="width:90px">Состав</th>
+                    <th style="width:110px">Очки</th>
+                    <th style="min-width:200px">Приглашение</th>
+                    <th style="width:120px"></th>
+                  </tr>
+                </thead>
+                <tbody id="admin-evt-teams-tbody"></tbody>
+              </table>
+            </div>
+            <div class="admin-form-grid" style="margin-top: 14px">
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-team-name">Новая команда</label>
+                <input class="form__input" id="admin-evt-team-name" type="text" maxlength="32" placeholder="Название" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-evt-team-color">Цвет (необязательно)</label>
+                <input class="form__input" id="admin-evt-team-color" type="text" placeholder="#0EA5E9" />
+              </div>
+            </div>
+            <div class="form__actions">
+              <button type="button" class="btn btn--primary" id="admin-evt-team-create">Создать команду</button>
+            </div>
+            <div id="admin-evt-teams-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Уникальные персонажи -->
+        <div id="admin-view-uniquechars" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Уникальные персонажи</h2>
+            <span class="admin-view-head__grow"></span>
+            <button type="button" class="btn btn--ghost" id="admin-uc-refresh">Обновить</button>
+            <button type="button" class="btn btn--primary" id="admin-uc-new">Новый</button>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 820px">
+            Персонажи отображаются первыми в «Достижениях» и доступны в избранных слотах профиля.
+            Рекомендуемый размер — <strong>512×512 px</strong>.
+            Оптимальный формат — <strong>PNG</strong> или <strong>WebP</strong> с прозрачным фоном.
+            JPEG не подходит: при загрузке фон станет непрозрачным.
+          </p>
+          <div class="admin-programs-layout admin-section-gap">
+            <div class="form-card">
+              <h3 class="h3" style="margin: 0 0 12px; font-size: 16px">Каталог</h3>
+              <div id="admin-uc-list"></div>
+            </div>
+            <div class="form-card">
+              <p class="muted" style="margin: 0 0 12px; font-size: 13px">
+                ID: <span id="admin-uc-cur-id">—</span>
+              </p>
+              <div class="form__field">
+                <label class="form__label" for="admin-uc-id">ID персонажа</label>
+                <input class="form__input" id="admin-uc-id" type="text" placeholder="umatnyy_mascot" maxlength="64" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-uc-name">Название</label>
+                <input class="form__input" id="admin-uc-name" type="text" maxlength="120" />
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-uc-rarity">Редкость</label>
+                <select class="form__input" id="admin-uc-rarity">
+                  <option value="common">common — обычная</option>
+                  <option value="rare">rare — редкая</option>
+                  <option value="epic">epic — эпическая</option>
+                  <option value="legendary">legendary — легендарная</option>
+                </select>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="admin-uc-image">Изображение (filename)</label>
+                <input class="form__input" id="admin-uc-image" type="text" placeholder="после загрузки" />
+                <p class="muted" style="margin: 6px 0 0; font-size: 12px">
+                  Лучше всего: <strong>PNG</strong> или <strong>WebP</strong> с прозрачным фоном (512×512 px).
+                </p>
+                <input class="modal__file" id="admin-uc-image-file" type="file" accept="image/png,image/webp,image/gif" style="margin-top: 8px" />
+                <button type="button" class="btn btn--ghost" id="admin-uc-upload-image" style="margin-top: 8px">Загрузить изображение</button>
+                <div id="admin-uc-image-preview" style="margin-top: 10px"></div>
+              </div>
+              <div id="admin-uc-msg" class="form__success" hidden></div>
+              <div id="admin-uc-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+              <div class="form__actions" style="margin-top: 16px">
+                <button type="button" class="btn btn--primary" id="admin-uc-save">Сохранить</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 10px; font-size: 16px">Выдать пользователю</h3>
+            <p class="muted" style="margin: 0 0 14px; font-size: 13px">
+              Поиск по нику (username), login, email, имени или telegram_id.
+            </p>
+            <div class="form__field">
+              <label class="form__label" for="admin-uc-grant-search">Поиск пользователя</label>
+              <input class="form__input" id="admin-uc-grant-search" type="text" placeholder="ник или telegram_id" />
+            </div>
+            <div class="form__actions" style="margin-top: 0">
+              <button type="button" class="btn btn--ghost" id="admin-uc-grant-search-btn">Найти</button>
+            </div>
+            <p id="admin-uc-grant-search-status" class="muted" style="font-size: 13px; margin: 10px 0 0"></p>
+            <div id="admin-uc-grant-users" class="admin-user-list" style="margin-top: 12px"></div>
+            <p class="muted" id="admin-uc-grant-target" style="font-size: 13px; margin: 14px 0 0">Пользователь не выбран</p>
+            <input type="hidden" id="admin-uc-grant-tid" value="" />
+            <div class="form__field" style="margin-top: 14px">
+              <label class="form__label" for="admin-uc-grant-cid">ID персонажа для выдачи</label>
+              <input class="form__input" id="admin-uc-grant-cid" type="text" placeholder="выберите из каталога или введите вручную" />
+            </div>
+            <div class="form__actions">
+              <button type="button" class="btn btn--primary" id="admin-uc-grant-btn">Выдать персонажа</button>
+            </div>
+            <div id="admin-uc-grant-msg" class="form__success" hidden></div>
+            <div id="admin-uc-grant-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Пуши -->
+        <div id="admin-view-push" hidden>
+          <div class="admin-view-head">
+            <button type="button" class="btn btn--ghost" data-nav="menu">← В меню</button>
+            <h2>Системные пуши</h2>
+          </div>
+          <p class="muted admin-section-gap" style="font-size: 14px; max-width: 760px">
+            Ручная отправка push-уведомлений на Android и iOS. Нажатие кнопки запускает одноразовую рассылку.
+            Автоматической отправки здесь нет.
+          </p>
+
+          <div class="form-card admin-section-gap">
+            <div class="form__field">
+              <label class="form__label" for="admin-push-title">Заголовок</label>
+              <input
+                class="form__input"
+                id="admin-push-title"
+                type="text"
+                maxlength="120"
+                placeholder="КИСФИТ"
+              />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="admin-push-message">Текст сообщения</label>
+              <textarea
+                class="form__textarea"
+                id="admin-push-message"
+                rows="4"
+                maxlength="800"
+                placeholder="Введите текст системного уведомления"
+              ></textarea>
+            </div>
+            <div class="form__actions">
+              <button type="button" class="btn btn--primary" id="admin-push-send-all">
+                Отправить всем
+              </button>
+            </div>
+            <div id="admin-push-msg" class="form__success" hidden></div>
+            <div id="admin-push-error" class="form__error" style="display: none; margin-top: 12px" role="alert"></div>
+          </div>
+
+          <div class="form-card">
+            <h3 class="h3" style="margin: 0 0 10px; font-size: 16px">Сегментная отправка</h3>
+            <p class="muted" style="margin: 0 0 14px; font-size: 13px">
+              По кнопке ниже уведомление уходит тем, кто сегодня ещё не продлил стрик.
+            </p>
+            <div class="form__actions" style="margin-top: 0">
+              <button type="button" class="btn btn--ghost" id="admin-push-send-streak-not-extended">
+                Отправить тем, кто не продлил стрик
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="admin-merch-detail-modal" class="modal" hidden aria-hidden="true">
+      <div class="modal__backdrop js-merch-detail-close" tabindex="-1"></div>
+      <div class="modal__dialog" style="max-width: 560px; max-height: 90vh; overflow-y: auto">
+        <button type="button" class="modal__close js-merch-detail-close" aria-label="Закрыть">×</button>
+        <h3 class="h3" style="margin-top: 0">Заявка на мерч</h3>
+        <div id="admin-merch-detail-body"></div>
+      </div>
+    </div>
+
+    <script src="./admin.js?v=map-ad-pins-3"></script>
+  </body>
+</html>
